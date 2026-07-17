@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────
+   Design System — Tema Mentor/Educator
+   "Mengajar sambil membangun" — hangat, terstruktur
+   seperti modul pembelajaran.
+   ───────────────────────────────────────────── */
+
+@theme {
+  /* Palet warna (named hex) */
+  --color-cream: #fbf6ed; /* background utama, hangat seperti kertas modul */
+  --color-ink: #232019; /* teks utama, hampir hitam kehangatan */
+  --color-amber: #e8a33d; /* aksen utama — semangat mengajar */
+  --color-clay: #c15f3c; /* aksen sekunder — hover/CTA penting */
+  --color-sage: #6b7a5e; /* aksen tersier — badge sertifikat/pencapaian */
+  --color-paper: #f1eada; /* card/section alternate background */
+
+  /* Varian gelap dari cream (dark mode konsisten & hangat) */
+  --color-cream-dark: #1f1b14;
+  --color-paper-dark: #2a251c;
+  --color-ink-dark: #ece5d6;
+
+  /* Tipografi */
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+
+  /* Shadow amber transparan — kesan "sticky note dari kelas" */
+  --shadow-card: 0 2px 4px -1px rgb(232 163 61 / 0.12),
+    0 8px 24px -6px rgb(232 163 61 / 0.18);
+  --shadow-card-hover: 0 6px 12px -2px rgb(193 95 60 / 0.2),
+    0 16px 40px -8px rgb(232 163 61 / 0.28);
+}
+
+/* ─── Base ─── */
+:root {
+  color-scheme: light;
+  --bg: var(--color-cream);
+  --bg-alt: var(--color-paper);
+  --fg: var(--color-ink);
+}
+
+html.dark {
+  color-scheme: dark;
+  --bg: var(--color-cream-dark);
+  --bg-alt: var(--color-paper-dark);
+  --fg: var(--color-ink-dark);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* offset agar anchor tidak tertutup navbar sticky */
+  scroll-padding-top: 5rem;
+  /* cegah scroll/geser horizontal di HP bila ada elemen menjulur */
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Utility classes bound to theme-aware CSS vars */
+@layer utilities {
+  /* Sembunyikan scrollbar carousel sertifikat (tetap bisa di-scroll) */
+  .cert-track {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge lawas */
+  }
+  .cert-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  .bg-surface {
+    background-color: var(--bg);
+  }
+  .bg-surface-alt {
+    background-color: var(--bg-alt);
+  }
+  .text-surface-fg {
+    color: var(--fg);
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+
+/* Selection warna hangat */
+::selection {
+  background-color: rgb(232 163 61 / 0.35);
+  color: var(--color-ink);
+}
+
+/* Scrollbar tipis bertema */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-amber) transparent;
+}
