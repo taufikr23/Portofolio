@@ -1,6 +1,6 @@
 // src/data/profile.js
 // Data profil terpusat — dipakai di Home, About, Kontak, Footer.
-import cvFile from '../assets/cv/Taufik Rahman Tanjung.pdf'
+import cvFile from '../assets/cv/CV TAUFIK RAHMAN TANJUNG.pdf'
 
 export const profile = {
   name: 'Taufik Rahman Tanjung',
