@@ -6,6 +6,7 @@
 import quizsepShot from '../assets/projects/quizsep.png'
 import tmedicShot from '../assets/projects/T-medic.png'
 import masekShot from '../assets/projects/Masek.png'
+import projectCShot from '../assets/projects/project-c.png'
 
 export const projects = [
   {
@@ -64,5 +65,24 @@ export const projects = [
     ],
     liveUrl: '',
     githubUrl: 'https://github.com/taufikr23/masek', // sesuaikan bila nama repo berbeda
+  },
+  {
+    id: 'project-c',
+    title: 'Bioskop',
+    tagline: { id: 'Aplikasi CLI berbasis bahasa C', en: 'C-based CLI application' },
+    image: projectCShot,
+    description: {
+      id: 'Aplikasi berbasis bahasa C yang dikembangkan sebagai proyek Ujian Akhir Semester untuk mengimplementasikan konsep dasar struktur data, pemrograman prosedural, dan manajemen data. Sistem menyediakan berbagai fitur pengelolaan data melalui antarmuka terminal (CLI) dengan fokus pada efisiensi, validasi input, dan pengalaman pengguna.',
+      en: 'A C-based application developed as a Final Semester Exam project to implement the fundamentals of data structures, procedural programming, and data management. The system provides various data-management features through a terminal interface (CLI) with a focus on efficiency, input validation, and user experience.',
+    },
+    stack: ['C', 'File Handling', 'Data Structure', 'Algorithm', 'CLI'],
+    features: [
+      { id: 'Manajemen data menggunakan operasi Create, Read, Update, Delete (CRUD)', en: 'Data management using Create, Read, Update, Delete (CRUD) operations' },
+      { id: 'Pencarian dan pengelolaan data berbasis struktur data di bahasa C', en: 'Data search and management based on data structures in C' },
+      { id: 'Validasi input serta navigasi menu interaktif pada terminal', en: 'Input validation and interactive menu navigation in the terminal' },
+      { id: 'Penyimpanan dan pengelolaan data menggunakan file untuk mempertahankan data antar sesi', en: 'Data storage and management using files to persist data across sessions' },
+    ],
+    liveUrl: '',
+    githubUrl: 'https://github.com/taufikr23/UAS_TAUFIK_RAHMAN_TANJUNG', // sesuaikan bila nama repo berbeda
   },
 ]

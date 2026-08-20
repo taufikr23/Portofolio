@@ -56,6 +56,6 @@ export const experience = [
 // Statistik "nilai rapor" untuk Home
 export const stats = [
   { label: { id: 'Pengalaman', en: 'Experience' }, value: '2+', unit: { id: 'Tahun', en: 'Years' } },
-  { label: { id: 'Projek', en: 'Projects' }, value: '2', unit: { id: 'Aplikasi', en: 'Apps' } },
+  { label: { id: 'Projek', en: 'Projects' }, value: '3+', unit: { id: 'Aplikasi', en: 'Apps' } },
   { label: { id: 'IPK', en: 'GPA' }, value: '3.62', unit: { id: '/ 4.00', en: '/ 4.00' } },
 ]

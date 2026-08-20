@@ -15,7 +15,6 @@ export const ui = {
     'label.module': 'Modul',
 
     // Home
-    'home.badge': 'Sampul Modul — Portofolio',
     'home.cta.projects': 'Lihat Projek Saya',
     'home.cta.contact': 'Hubungi Saya',
     'home.scroll': 'SCROLL',
@@ -75,7 +74,6 @@ export const ui = {
 
     // Kicker per section
     'kicker.sertifikat': 'Rekam jejak pelatihan dan capaian — klik kartu untuk melihat sertifikat ukuran penuh.',
-    'kicker.projek': 'Aplikasi yang saya rancang dan bangun end-to-end — klik kartu untuk melihat detail lengkap.',
     'kicker.kontak': 'Terbuka untuk peluang Fullstack Engineer, kolaborasi projek, maupun sekadar diskusi teknis.',
   },
 
@@ -90,7 +88,6 @@ export const ui = {
     'label.module': 'Module',
 
     // Home
-    'home.badge': 'Module Cover — Portfolio',
     'home.cta.projects': 'View My Projects',
     'home.cta.contact': 'Contact Me',
     'home.scroll': 'SCROLL',
@@ -150,7 +147,6 @@ export const ui = {
 
     // Kicker per section
     'kicker.sertifikat': 'A track record of training and achievements — click a card to view the full-size certificate.',
-    'kicker.projek': 'Applications I designed and built end-to-end — click a card to see the full details.',
     'kicker.kontak': 'Open to Fullstack Engineer opportunities, project collaborations, or simply technical discussions.',
   },
 }

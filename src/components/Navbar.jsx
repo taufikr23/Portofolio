@@ -13,7 +13,7 @@ export default function Navbar({ active, onJump, dark, onToggleDark }) {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-[color:var(--bg)]/80 backdrop-blur-md">
+    <header id="site-navbar" className="fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-[color:var(--bg)]/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         {/* Brand */}
         <button
@@ -87,9 +87,6 @@ export default function Navbar({ active, onJump, dark, onToggleDark }) {
                     : 'text-surface-fg/80 hover:bg-paper',
                 ].join(' ')}
               >
-                {s.module && (
-                  <span className="font-mono text-xs text-sage">M{s.module}</span>
-                )}
                 {tr(s.nav)}
               </button>
             ))}

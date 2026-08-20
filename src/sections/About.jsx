@@ -11,10 +11,9 @@ import { useLang } from '../context/LanguageContext'
 export default function About() {
   const { t, tr } = useLang()
   return (
-    <section id="about" className="scroll-mt-20 px-5 py-20">
+    <section id="about" className="px-5 py-20">
       <div className="mx-auto max-w-6xl">
         <SectionLabel
-          module="01"
           title={tr({ id: 'Profil & Latar Belakang', en: 'Profile & Background' })}
           kicker={tr(profile.summary)}
         />

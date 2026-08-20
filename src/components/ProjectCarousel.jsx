@@ -9,52 +9,8 @@ import Modal from './ui/Modal'
 import { projects } from '../data/projects'
 import { useLang } from '../context/LanguageContext'
 
-// Proyek dummy sebagai contoh (bisa diganti dengan proyek asli nanti).
-const ecoTrack = {
-  id: 'ecotrack',
-  title: 'EcoTrack',
-  tagline: { id: 'Pemantau jejak karbon', en: 'Carbon footprint tracker' },
-  image: null, // ganti dengan import screenshot
-  description: {
-    id: 'Pantau jejak karbon dan konsumsi energi secara real-time, lengkap dengan visualisasi tren dan target penghematan.',
-    en: 'Track carbon footprint and energy consumption in real time, complete with trend visualizations and saving targets.',
-  },
-  stack: ['Next.js', 'Firebase', 'Chart.js', 'Tailwind'],
-  liveUrl: '',
-  githubUrl: 'https://github.com/taufikr23/ecotrack',
-}
-
-const taskFlow = {
-  id: 'taskflow',
-  title: 'TaskFlow',
-  tagline: { id: 'Manajemen tugas tim', en: 'Team task management' },
-  image: null,
-  description: {
-    id: 'Papan kanban kolaboratif untuk mengatur tugas tim dengan drag-and-drop, label prioritas, dan pembaruan real-time.',
-    en: 'A collaborative kanban board to organize team tasks with drag-and-drop, priority labels, and real-time updates.',
-  },
-  stack: ['React', 'TypeScript', 'Supabase', 'Tailwind'],
-  liveUrl: '',
-  githubUrl: 'https://github.com/taufikr23/taskflow',
-}
-
-const wanderLog = {
-  id: 'wanderlog',
-  title: 'WanderLog',
-  tagline: { id: 'Jurnal perjalanan', en: 'Travel journal' },
-  image: null,
-  description: {
-    id: 'Catat perjalanan dengan peta interaktif, galeri foto, dan cerita per lokasi yang bisa dibagikan ke teman.',
-    en: 'Log your trips with an interactive map, photo gallery, and per-location stories you can share with friends.',
-  },
-  stack: ['Vue', 'Node.js', 'MongoDB', 'Mapbox'],
-  liveUrl: '',
-  githubUrl: 'https://github.com/taufikr23/wanderlog',
-}
-
-// Ambil QuizSep & T-Medic dari data asli, tambahkan 3 proyek contoh
-// agar layout 2 kiri + 1 tengah + 2 kanan terisi penuh (butuh min. 5 kartu).
-const defaultItems = [...projects, ecoTrack, taskFlow, wanderLog]
+// Semua kartu carousel berasal dari data proyek asli.
+const defaultItems = projects
 
 // Style per posisi relatif terhadap kartu tengah (2 kiri + 1 tengah + 2 kanan).
 // Tetangga luar (±2) lebih kecil, lebih pudar, lebih blur, dan di belakang.

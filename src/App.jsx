@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ProgressRail from './components/ProgressRail'
+import Reveal from './components/ui/Reveal'
 import Home from './sections/Home'
 import About from './sections/About'
 import Sertifikat from './sections/Sertifikat'
@@ -12,7 +13,7 @@ import { useScrollSpy } from './hooks/useScrollSpy'
 import { useLang } from './context/LanguageContext'
 
 export default function App() {
-  const { progress, active } = useScrollSpy(sectionIds)
+  const { progress, active, lockActive } = useScrollSpy(sectionIds)
   const { t } = useLang()
   // Baca preferensi tema sinkron sebelum render pertama supaya tidak
   // tertimpa nilai default dan tetap konsisten setelah refresh.
@@ -28,15 +29,30 @@ export default function App() {
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
 
-  // Smooth-scroll ke section (menghormati prefers-reduced-motion)
+  // Smooth-scroll ke section dengan offset = tinggi navbar aktual.
+  // Diukur dinamis setiap klik supaya tetap akurat meski tinggi navbar
+  // berubah (mis. responsif / ganti bahasa), dan tidak bergantung pada
+  // offset CSS statis yang bisa berbeda dari tinggi navbar sebenarnya.
   const jump = useCallback((id) => {
+    lockActive(id)
     const el = document.getElementById(id)
     if (!el) return
     const reduce = window.matchMedia?.(
       '(prefers-reduced-motion: reduce)',
     ).matches
-    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
-  }, [])
+
+    // Section pertama (home): scroll ke paling atas viewport.
+    if (id === sectionIds[0]) {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+      return
+    }
+
+    const navH = document.getElementById('site-navbar')?.offsetHeight ?? 0
+    const top =
+      el.getBoundingClientRect().top + window.scrollY - navH
+
+    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
+  }, [lockActive])
 
   return (
     <>
@@ -59,10 +75,18 @@ export default function App() {
 
       <main>
         <Home onJump={jump} />
-        <About />
-        <Sertifikat />
-        <Projek />
-        <Kontak />
+        <Reveal>
+          <About />
+        </Reveal>
+        <Reveal delay={100}>
+          <Sertifikat />
+        </Reveal>
+        <Reveal delay={100}>
+          <Projek />
+        </Reveal>
+        <Reveal delay={100}>
+          <Kontak />
+        </Reveal>
       </main>
 
       <Footer onJump={jump} />

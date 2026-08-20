@@ -45,10 +45,9 @@ export default function Sertifikat() {
   }, [filter])
 
   return (
-    <section id="sertifikat" className="scroll-mt-20 bg-surface-alt px-5 py-20">
+    <section id="sertifikat" className="bg-surface-alt px-5 py-20">
       <div className="mx-auto max-w-6xl">
         <SectionLabel
-          module="02"
           title={tr({ id: 'Sertifikat & Pencapaian', en: 'Certificates & Achievements' })}
           kicker={t('kicker.sertifikat')}
         />

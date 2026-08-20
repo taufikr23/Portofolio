@@ -23,6 +23,7 @@ export const profile = {
   socials: {
     linkedin: 'https://www.linkedin.com/in/taufik-rahman-tanjung-b7aa163a2/',
     github: 'https://github.com/taufikr23',
+    instagram: 'https://www.instagram.com/taufikrtjg/',
   },
 }
 

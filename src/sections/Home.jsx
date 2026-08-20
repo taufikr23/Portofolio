@@ -11,7 +11,7 @@ export default function Home({ onJump }) {
   return (
     <section
       id="home"
-      className="relative overflow-hidden scroll-mt-20 px-5 pb-20 pt-28 sm:pt-32"
+      className="relative overflow-hidden px-5 pb-20 pt-28 sm:pt-32"
     >
       {/* dekorasi hangat di latar */}
       <div
@@ -26,11 +26,6 @@ export default function Home({ onJump }) {
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.3fr_1fr]">
         {/* Kolom teks */}
         <div>
-          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber/40 bg-amber/10 px-3 py-1.5 font-mono text-xs font-medium text-clay">
-            <span className="h-1.5 w-1.5 rounded-full bg-sage" />
-            {t('home.badge')}
-          </span>
-
           <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-surface-fg sm:text-6xl">
             {profile.name}
           </h1>
@@ -88,11 +83,11 @@ export default function Home({ onJump }) {
             <div className="absolute inset-0 -rotate-3 rounded-3xl border-2 border-clay/40" />
             <div className="absolute inset-0 rotate-2 rounded-3xl bg-amber/15" />
             {/* frame foto */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border-4 border-amber bg-paper shadow-card-hover">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border-4 border-amber bg-paper shadow-card-hover transition-all duration-300 hover:scale-[1.03] hover:rotate-1 hover:shadow-[0_8px_30px_rgba(217,163,74,0.3)]">
               <img
                 src={profilePhoto}
                 alt={profile.name}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
               />
             </div>
             {/* label sudut */}
