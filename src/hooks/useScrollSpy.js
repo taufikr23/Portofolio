@@ -43,7 +43,9 @@ export function useScrollSpy(sectionIds) {
       let current = sectionIds[0]
       for (const id of sectionIds) {
         const el = document.getElementById(id)
-        if (el && el.offsetTop <= mid) current = id
+        if (!el) continue
+        const top = el.getBoundingClientRect().top + scrollTop
+        if (top <= mid) current = id
       }
       setActive(current)
     }

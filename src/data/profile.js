@@ -1,5 +1,6 @@
 // src/data/profile.js
 // Data profil terpusat — dipakai di Home, About, Kontak, Footer.
+import cvFile from '../assets/cv/Taufik Rahman Tanjung.pdf'
 
 export const profile = {
   name: 'Taufik Rahman Tanjung',
@@ -19,7 +20,7 @@ export const profile = {
   email: 'taufiksibolga1@gmail.com',
   phone: '+62 822-8766-5584',
   whatsapp: '6282287665584', // format internasional tanpa + untuk wa.me
-  cvUrl: '/cv.pdf', // taruh CV di public/cv.pdf
+  cvUrl: cvFile,
   socials: {
     linkedin: 'https://www.linkedin.com/in/taufik-rahman-tanjung-b7aa163a2/',
     github: 'https://github.com/taufikr23',
