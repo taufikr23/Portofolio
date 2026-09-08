@@ -3,10 +3,11 @@
 
 export const education = {
   degree: { id: 'D3 Manajemen Informatika', en: 'Diploma in Informatics Management' },
-  school: { id: 'Politeknik PASIM Bandung', en: 'PASIM Polytechnic Bandung' },
+  school: { id: 'Universitas Nasional PASIM Bandung', en: 'Universitas Nasional PASIM Bandung' },
+  period: 'Sep 2024 — Sekarang',
   gpa: '3.62',
   highlights: [
-    { id: 'Beasiswa PUB', en: 'PUB Scholarship' },
+    { id: 'Beasiswa Pemberdayaan Umat Berkelanjutan (PUB)', en: 'PUB Scholarship (Pemberdayaan Umat Berkelanjutan)' },
     { id: 'Program Akselerasi 2 Tahun', en: '2-Year Acceleration Program' },
   ],
 }
@@ -18,36 +19,56 @@ export const experience = [
     org: { id: 'Beasiswa PUB', en: 'PUB Scholarship' },
     period: 'Des 2024 — Jun 2026',
     current: true,
-    // rincian materi per periode
     details: [
       {
-        id: 'Periode I — Logika Algoritma: mengajar dasar pemrograman, alur berpikir, dan penyelesaian masalah bertahap.',
-        en: 'Term I — Algorithm Logic: teaching programming fundamentals, thinking flow, and step-by-step problem solving.',
+        id: 'Mengajar materi Logika Algoritma dan Bahasa Pemrograman (Sep 2025 — Feb 2026): problem solving, flowchart, pseudocode, operator, percabangan, perulangan, fungsi, dan array.',
+        en: 'Taught Algorithm Logic and Programming Language (Sep 2025 — Feb 2026): problem solving, flowchart, pseudocode, operators, branching, loops, functions, and arrays.',
       },
       {
-        id: 'Periode II — Database MySQL: merancang skema relasional, query, dan normalisasi data.',
-        en: 'Term II — MySQL Database: designing relational schemas, queries, and data normalization.',
+        id: 'Mengajar materi Database MySQL (Feb 2026 — Jun 2026): operasi CRUD, normalisasi database, perancangan relasi antar tabel, dan implementasi query SQL.',
+        en: 'Taught MySQL Database (Feb 2026 — Jun 2026): CRUD operations, database normalization, table relation design, and SQL query implementation.',
       },
       {
-        id: 'Menyusun modul & latihan terstruktur serta mendampingi peserta hingga mandiri.',
-        en: 'Building structured modules & exercises and mentoring participants until they become independent.',
+        id: 'Membimbing peserta dalam praktik pemrograman dan penyelesaian studi kasus serta memberikan evaluasi dan pendampingan.',
+        en: 'Mentored participants in programming practice and case study problem solving, providing evaluation and guidance.',
       },
     ],
   },
   {
     id: 'exp-magang',
-    role: { id: 'Magang Akademik — Pengembangan Sistem Informasi', en: 'Academic Internship — Information System Development' },
-    org: { id: 'PASIM Bandung', en: 'PASIM Bandung' },
-    period: '2024',
-    current: false,
+    role: { id: 'Magang Akademik', en: 'Academic Internship' },
+    org: { id: 'Universitas Nasional PASIM Bandung', en: 'Universitas Nasional PASIM Bandung' },
+    period: 'Sep 2025 — Sep 2026',
+    current: true,
     details: [
       {
-        id: 'Terlibat dalam pengembangan sistem informasi internal.',
-        en: 'Involved in the development of an internal information system.',
+        id: 'Membantu pelaksanaan praktikum dan kegiatan akademik di laboratorium komputer.',
+        en: 'Assisted in practicum sessions and academic activities in the computer laboratory.',
       },
       {
-        id: 'Menerapkan alur fullstack: front-end, REST API, dan database.',
-        en: 'Applying a fullstack flow: front-end, REST API, and database.',
+        id: 'Memberikan pendampingan kepada mahasiswa dalam penggunaan perangkat lunak dan penyelesaian tugas praktikum.',
+        en: 'Provided guidance to students in software usage and practicum assignment completion.',
+      },
+      {
+        id: 'Menyusun dokumentasi kegiatan dan membantu dosen dalam kelancaran proses pembelajaran.',
+        en: 'Prepared activity documentation and assisted lecturers in ensuring smooth learning processes.',
+      },
+    ],
+  },
+  {
+    id: 'exp-himami',
+    role: { id: 'HIMAMI — Divisi Humas', en: 'HIMAMI — Public Relations Division' },
+    org: { id: 'Universitas Nasional PASIM Bandung', en: 'Universitas Nasional PASIM Bandung' },
+    period: 'Sep 2024 — Sep 2026',
+    current: true,
+    details: [
+      {
+        id: 'Menjalin hubungan serta koordinasi dengan mahasiswa, dosen, dan pihak eksternal untuk mendukung kegiatan organisasi.',
+        en: 'Built relationships and coordinated with students, lecturers, and external parties to support organizational activities.',
+      },
+      {
+        id: 'Mengelola komunikasi organisasi melalui media sosial dan berkolaborasi dengan divisi lain dalam pelaksanaan acara.',
+        en: 'Managed organizational communication through social media and collaborated with other divisions in event execution.',
       },
     ],
   },
@@ -56,6 +77,6 @@ export const experience = [
 // Statistik "nilai rapor" untuk Home
 export const stats = [
   { label: { id: 'Pengalaman', en: 'Experience' }, value: '2+', unit: { id: 'Tahun', en: 'Years' } },
-  { label: { id: 'Projek', en: 'Projects' }, value: '3+', unit: { id: 'Aplikasi', en: 'Apps' } },
+  { label: { id: 'Projek', en: 'Projects' }, value: '5+', unit: { id: 'Aplikasi', en: 'Apps' } },
   { label: { id: 'IPK', en: 'GPA' }, value: '3.62', unit: { id: '/ 4.00', en: '/ 4.00' } },
 ]

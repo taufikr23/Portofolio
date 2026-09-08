@@ -5,6 +5,7 @@ import ProgressRail from './components/ProgressRail'
 import Reveal from './components/ui/Reveal'
 import Home from './sections/Home'
 import About from './sections/About'
+import Keahlian from './sections/Keahlian'
 import Sertifikat from './sections/Sertifikat'
 import Projek from './sections/Projek'
 import Kontak from './sections/Kontak'
@@ -77,6 +78,9 @@ export default function App() {
         <Home onJump={jump} />
         <Reveal>
           <About />
+        </Reveal>
+        <Reveal delay={100}>
+          <Keahlian />
         </Reveal>
         <Reveal delay={100}>
           <Sertifikat />

@@ -5,18 +5,17 @@ import { useLang } from '../context/LanguageContext'
 export default function SectionLabel({ module, title, kicker }) {
   const { t } = useLang()
   return (
-    <div className="mb-10">
+    <div className="mb-12">
       {module && (
-        <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-clay">
-          <span className="h-px w-6 bg-amber" />
+        <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-amber">
           {t('label.module')} {module}
         </span>
       )}
-      <h2 className="font-display text-3xl font-semibold tracking-tight text-surface-fg sm:text-4xl">
+      <h2 className="font-display text-3xl font-bold tracking-tight text-surface-fg sm:text-4xl">
         {title}
       </h2>
       {kicker && (
-        <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-surface-fg/70">
+        <p className="mt-4 max-w-2xl font-body text-base leading-relaxed text-surface-fg/70">
           {kicker}
         </p>
       )}

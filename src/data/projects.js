@@ -3,49 +3,69 @@
 // Sampai screenshot asli ada, biarkan image: null → tampil placeholder bertema.
 
 // Screenshot proyek — import file dari src/assets/projects/ lalu isi field `image`.
-import quizsepShot from '../assets/projects/quizsep.png'
-import tmedicShot from '../assets/projects/T-medic.png'
-import masekShot from '../assets/projects/Masek.png'
+import quizsepShot from '../assets/projects/Projek QuizSep.png'
+import tmedicShot from '../assets/projects/Projek T-Medic.png'
+import masekShot from '../assets/projects/Projek MaSek.png'
 import projectCShot from '../assets/projects/project-c.png'
+import siasekShot from '../assets/projects/Projek Siasek.png'
 
 export const projects = [
   {
+    id: 'siasek',
+    title: 'SIASEK',
+    tagline: { id: 'Platform manajemen akademik terpadu berbasis microservices', en: 'Integrated academic management platform based on microservices' },
+    image: siasekShot,
+    description: {
+      id: 'Platform manajemen akademik terpadu berbasis arsitektur microservices dengan Java Spring Boot yang terbagi ke dalam 7+ layanan mandiri (Auth, Student, Academic, Schedule, Attendance, Assignment, dan Grade). Dilengkapi API Gateway tersentralisasi, autentikasi JWT, notifikasi email via SMTP, dan kontainerisasi menyeluruh dengan Docker.',
+      en: 'An integrated academic management platform built on a microservices architecture with Java Spring Boot, split into 7+ independent services (Auth, Student, Academic, Schedule, Attendance, Assignment, and Grade). Features a centralized API Gateway, JWT authentication, email notifications via SMTP, and full containerization with Docker.',
+    },
+    stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Java', 'Spring Boot', 'Spring Cloud Gateway', 'MySQL', 'Docker'],
+    features: [
+      { id: 'Arsitektur microservices dengan 7+ layanan mandiri (Auth, Student, Academic, Schedule, Attendance, Assignment, Grade)', en: 'Microservices architecture with 7+ independent services (Auth, Student, Academic, Schedule, Attendance, Assignment, Grade)' },
+      { id: 'API Gateway tersentralisasi dengan autentikasi JWT dan notifikasi email SMTP', en: 'Centralized API Gateway with JWT authentication and SMTP email notifications' },
+      { id: 'Frontend interaktif, type-safe, dan responsif untuk siswa, guru, dan admin', en: 'Interactive, type-safe, and responsive frontend for students, teachers, and admins' },
+      { id: 'Kontainerisasi menyeluruh dengan Docker & Docker Compose untuk deployment dan skalabilitas', en: 'Full containerization with Docker & Docker Compose for deployment and scalability' },
+    ],
+    liveUrl: '',
+    githubUrl: '',
+  },
+  {
     id: 'quizsep',
     title: 'QuizSep',
-    tagline: { id: 'Platform kuis edukasi', en: 'Educational quiz platform' },
+    tagline: { id: 'Platform kuis edukasi interaktif', en: 'Interactive educational quiz platform' },
     image: quizsepShot,
     description: {
-      id: 'Platform kuis edukasi tempat pengajar membuat bank soal dan peserta mengerjakan kuis secara real-time. Dibangun untuk mendukung cara saya mengajar: latihan terstruktur dengan umpan balik langsung.',
-      en: 'An educational quiz platform where instructors create question banks and participants take quizzes in real time. Built to support the way I teach: structured exercises with instant feedback.',
+      id: 'Platform kuis edukasi interaktif bertema kosmik/galaksi dengan User Panel (pilih kategori, kerjakan kuis, review jawaban, tracking progres) dan Admin Panel (manajemen soal, manajemen pengguna, dan laporan analitik). Memiliki 50+ soal dari 8 kategori dengan tingkat kesulitan bertingkat, timer 5 menit, dan skor real-time.',
+      en: 'An interactive educational quiz platform with a cosmic/galaxy theme featuring a User Panel (category selection, quiz taking, answer review, progress tracking) and Admin Panel (question management, user management, and analytics reports). Includes 50+ questions from 8 categories with tiered difficulty levels, a 5-minute timer, and real-time scoring.',
     },
-    stack: ['React', 'Node.js', 'Express', 'PostgreSQL', 'JWT'],
+    stack: ['React', 'Vite', 'JavaScript', 'CSS', 'Git & GitHub', 'Vercel'],
     features: [
-      { id: 'Autentikasi peran (pengajar & peserta) berbasis JWT', en: 'Role-based authentication (instructor & participant) using JWT' },
-      { id: 'Editor bank soal dengan kategori & tingkat kesulitan', en: 'Question-bank editor with categories & difficulty levels' },
-      { id: 'Penilaian otomatis dan rekap skor per sesi', en: 'Automatic grading and score recap per session' },
-      { id: 'Dashboard progres peserta untuk evaluasi belajar', en: 'Participant progress dashboard for learning evaluation' },
+      { id: 'Sistem kuis dengan 50+ soal dari 8 kategori, tingkat kesulitan bertingkat, timer 5 menit, dan skor real-time', en: 'Quiz system with 50+ questions from 8 categories, tiered difficulty, 5-minute timer, and real-time scoring' },
+      { id: 'Fitur statistik pengguna untuk melacak riwayat kuis dan perkembangan skor', en: 'User statistics to track quiz history and score progress' },
+      { id: 'Review jawaban dengan penjelasan dan analisis kesalahan per soal', en: 'Answer review with explanations and per-question error analysis' },
+      { id: 'Dashboard admin dengan manajemen soal CRUD, manajemen pengguna, dan laporan aktivitas platform', en: 'Admin dashboard with CRUD question management, user management, and platform activity reports' },
     ],
-    liveUrl: '', // isi URL live demo bila ada
-    githubUrl: 'https://github.com/taufikr23/quizsep', // sesuaikan bila nama repo berbeda
+    liveUrl: '',
+    githubUrl: 'https://github.com/taufikr23/quizsep',
   },
   {
     id: 't-medic',
     title: 'T-Medic',
-    tagline: { id: 'Sistem informasi layanan kesehatan', en: 'Healthcare service information system' },
+    tagline: { id: 'Platform layanan kesehatan digital terintegrasi', en: 'Integrated digital healthcare platform' },
     image: tmedicShot,
     description: {
-      id: 'Aplikasi manajemen layanan kesehatan untuk mengelola data pasien, jadwal, dan riwayat pemeriksaan dalam satu alur yang rapi. Fokus pada relasi data yang bersih dan alur kerja yang mudah dipakai petugas.',
-      en: 'A healthcare service management app to handle patient data, schedules, and examination history in one tidy flow. Focused on clean data relations and a workflow that is easy for staff to use.',
+      id: 'Aplikasi full-stack layanan kesehatan digital yang menghubungkan pasien, dokter, dan admin dalam satu platform dengan autentikasi, otorisasi RBAC, dan deployment cloud. Dibangun dengan React, Express.js, dan Supabase dengan fitur konsultasi online real-time, E-Prescription, E-Pharmacy, dan rekam medis digital.',
+      en: 'A full-stack digital healthcare application connecting patients, doctors, and admins in one platform with authentication, RBAC authorization, and cloud deployment. Built with React, Express.js, and Supabase featuring real-time online consultation, E-Prescription, E-Pharmacy, and digital medical records.',
     },
-    stack: ['React', 'Node.js', 'Express', 'MySQL', 'Tailwind'],
+    stack: ['React', 'Vite', 'JavaScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'Supabase', 'Vercel', 'Railway'],
     features: [
-      { id: 'Manajemen data pasien & rekam pemeriksaan', en: 'Patient data & examination record management' },
-      { id: 'Penjadwalan dan pencarian data yang cepat', en: 'Scheduling and fast data search' },
-      { id: 'Relasi database ternormalisasi untuk integritas data', en: 'Normalized database relations for data integrity' },
-      { id: 'Antarmuka responsif untuk desktop & tablet', en: 'Responsive interface for desktop & tablet' },
+      { id: 'Konsultasi online real-time, E-Prescription, E-Pharmacy, sistem pembayaran, dan rekam medis digital', en: 'Real-time online consultation, E-Prescription, E-Pharmacy, payment system, and digital medical records' },
+      { id: 'Database PostgreSQL dengan 7 tabel relasional, RESTful API, pagination, filtering, dan pencarian data', en: 'PostgreSQL database with 7 relational tables, RESTful API, pagination, filtering, and data search' },
+      { id: 'Sistem notifikasi dan verifikasi email menggunakan Brevo SMTP', en: 'Email notification and verification system using Brevo SMTP' },
+      { id: 'Admin dashboard dengan CRUD dokter, obat, pengguna, verifikasi pembayaran, dan laporan analitik', en: 'Admin dashboard with doctor, medicine, user CRUD, payment verification, and analytics reports' },
     ],
     liveUrl: '',
-    githubUrl: 'https://github.com/taufikr23/t-medic', // sesuaikan bila nama repo berbeda
+    githubUrl: 'https://github.com/taufikr23/t-medic',
   },
   {
     id: 'masek',
@@ -64,25 +84,25 @@ export const projects = [
       { id: 'Interaksi dinamis dengan JavaScript murni', en: 'Dynamic interactions with plain JavaScript' },
     ],
     liveUrl: '',
-    githubUrl: 'https://github.com/taufikr23/masek', // sesuaikan bila nama repo berbeda
+    githubUrl: 'https://github.com/taufikr23/masek',
   },
   {
     id: 'project-c',
     title: 'Bioskop',
-    tagline: { id: 'Aplikasi CLI berbasis bahasa C', en: 'C-based CLI application' },
+    tagline: { id: 'Simulasi platform streaming film berbasis CLI', en: 'CLI-based movie streaming platform simulation' },
     image: projectCShot,
     description: {
-      id: 'Aplikasi berbasis bahasa C yang dikembangkan sebagai proyek Ujian Akhir Semester untuk mengimplementasikan konsep dasar struktur data, pemrograman prosedural, dan manajemen data. Sistem menyediakan berbagai fitur pengelolaan data melalui antarmuka terminal (CLI) dengan fokus pada efisiensi, validasi input, dan pengalaman pengguna.',
-      en: 'A C-based application developed as a Final Semester Exam project to implement the fundamentals of data structures, procedural programming, and data management. The system provides various data-management features through a terminal interface (CLI) with a focus on efficiency, input validation, and user experience.',
+      id: 'Aplikasi CLI berbasis bahasa C yang mensimulasikan platform streaming film dengan sistem autentikasi (login/register), manajemen saldo, dan pemutaran film gratis maupun premium (VIP). Dilengkapi antarmuka teks interaktif custom menggunakan Windows Console API dengan navigasi arrow-key, box UI, dan skema warna truecolor.',
+      en: 'A C-based CLI application simulating a movie streaming platform with authentication (login/register), balance management, and free/premium (VIP) movie playback. Features a custom interactive text interface using Windows Console API with arrow-key navigation, box UI, and truecolor color scheme.',
     },
-    stack: ['C', 'File Handling', 'Data Structure', 'Algorithm', 'CLI'],
+    stack: ['C', 'Windows Console API', 'ANSI Truecolor', 'File-based Storage'],
     features: [
-      { id: 'Manajemen data menggunakan operasi Create, Read, Update, Delete (CRUD)', en: 'Data management using Create, Read, Update, Delete (CRUD) operations' },
-      { id: 'Pencarian dan pengelolaan data berbasis struktur data di bahasa C', en: 'Data search and management based on data structures in C' },
-      { id: 'Validasi input serta navigasi menu interaktif pada terminal', en: 'Input validation and interactive menu navigation in the terminal' },
-      { id: 'Penyimpanan dan pengelolaan data menggunakan file untuk mempertahankan data antar sesi', en: 'Data storage and management using files to persist data across sessions' },
+      { id: 'Sistem autentikasi (login/register) dengan manajemen saldo dan akses film berbayar vs gratis', en: 'Authentication system (login/register) with balance management and paid vs free movie access' },
+      { id: 'Penyimpanan data berbasis file teks sebagai database sederhana dengan operasi CRUD', en: 'File-based text storage as simple database with CRUD operations' },
+      { id: 'Antarmuka teks interaktif custom (navigasi arrow-key, box UI, truecolor) dengan Windows Console API', en: 'Custom interactive text interface (arrow-key navigation, box UI, truecolor) with Windows Console API' },
+      { id: 'Modul validasi input, animasi loading, ASCII art, dan dashboard admin untuk monitoring pelanggan', en: 'Input validation module, loading animation, ASCII art, and admin dashboard for customer monitoring' },
     ],
     liveUrl: '',
-    githubUrl: 'https://github.com/taufikr23/UAS_TAUFIK_RAHMAN_TANJUNG', // sesuaikan bila nama repo berbeda
+    githubUrl: 'https://github.com/taufikr23/UAS_TAUFIK_RAHMAN_TANJUNG',
   },
 ]

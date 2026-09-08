@@ -47,16 +47,16 @@ export default function ProgressRail({ progress, active, onJump }) {
                   className={[
                     'block rounded-full border-2 transition-all duration-300',
                     isActive
-                      ? 'h-4 w-4 border-clay bg-amber shadow-[0_0_0_4px_rgba(232,163,61,0.25)]'
-                      : 'h-3 w-3 border-ink/30 bg-cream hover:border-amber',
+                      ? 'h-4 w-4 border-amber bg-amber shadow-[0_0_0_4px_rgba(var(--color-amber-rgb),0.2)]'
+                      : 'h-3 w-3 border-ink/20 bg-surface-alt hover:border-amber',
                   ].join(' ')}
                 />
                 {/* tooltip modul saat aktif */}
                 <span
                   className={[
-                    'absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[10px] tracking-wide transition-all duration-300',
+                    'absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[10px] font-medium tracking-wider transition-all duration-300',
                     isActive
-                      ? 'text-clay opacity-100'
+                      ? 'text-amber opacity-100'
                       : 'text-sage opacity-0',
                   ].join(' ')}
                 >

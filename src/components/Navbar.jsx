@@ -18,12 +18,12 @@ export default function Navbar({ active, onJump, dark, onToggleDark }) {
         {/* Brand */}
         <button
           onClick={() => handleJump('home')}
-          className="group flex items-center gap-2 focus:outline-none"
+          className="group flex items-center gap-3 focus:outline-none"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink font-display text-lg font-bold text-amber">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber font-display text-lg font-bold text-white shadow-card">
             T
           </span>
-          <span className="font-display text-lg font-semibold tracking-tight text-surface-fg">
+          <span className="font-display text-lg font-bold tracking-tight text-surface-fg">
             {t('nav.brand')}
           </span>
         </button>
@@ -35,10 +35,10 @@ export default function Navbar({ active, onJump, dark, onToggleDark }) {
               key={s.id}
               onClick={() => handleJump(s.id)}
               className={[
-                'relative rounded-lg px-3 py-2 font-body text-sm font-medium transition-colors',
+                'relative rounded-lg px-3 py-2 font-body text-sm font-semibold transition-colors',
                 active === s.id
-                  ? 'text-clay'
-                  : 'text-surface-fg/70 hover:text-clay',
+                  ? 'text-amber'
+                  : 'text-surface-fg/70 hover:text-amber',
               ].join(' ')}
             >
               {tr(s.nav)}
@@ -81,9 +81,9 @@ export default function Navbar({ active, onJump, dark, onToggleDark }) {
                 key={s.id}
                 onClick={() => handleJump(s.id)}
                 className={[
-                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-left font-body text-sm font-medium transition-colors',
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-left font-body text-sm font-semibold transition-colors',
                   active === s.id
-                    ? 'bg-amber/15 text-clay'
+                    ? 'bg-amber-alpha text-amber'
                     : 'text-surface-fg/80 hover:bg-paper',
                 ].join(' ')}
               >
@@ -105,10 +105,10 @@ function LangToggle({ lang, onToggle, label }) {
       title={label}
       className="flex h-10 items-center gap-0.5 rounded-lg px-1 font-mono text-xs font-semibold text-surface-fg transition-colors hover:bg-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
     >
-      <span className={lang === 'id' ? 'rounded bg-amber px-1.5 py-1 text-ink' : 'px-1.5 py-1 text-surface-fg/50'}>
+      <span className={lang === 'id' ? 'rounded bg-surface-alt px-1.5 py-1 text-amber' : 'px-1.5 py-1 text-surface-fg/50'}>
         ID
       </span>
-      <span className={lang === 'en' ? 'rounded bg-amber px-1.5 py-1 text-ink' : 'px-1.5 py-1 text-surface-fg/50'}>
+      <span className={lang === 'en' ? 'rounded bg-surface-alt px-1.5 py-1 text-amber' : 'px-1.5 py-1 text-surface-fg/50'}>
         EN
       </span>
     </button>

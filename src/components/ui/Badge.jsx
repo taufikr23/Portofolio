@@ -3,10 +3,10 @@
 // tone: 'amber' | 'sage' | 'clay' | 'ink'
 
 const toneMap = {
-  amber: 'border-amber/40 text-clay bg-amber/10',
-  sage: 'border-sage/40 text-sage bg-sage/10',
-  clay: 'border-clay/40 text-clay bg-clay/10',
-  ink: 'border-ink/20 text-surface-fg bg-paper/60',
+  amber: 'border-amber/30 text-amber bg-amber-alpha',
+  sage: 'border-sage/30 text-sage bg-sage-alpha',
+  clay: 'border-clay/30 text-clay bg-clay-alpha',
+  ink: 'border-ink/20 text-surface-fg bg-ink-alpha',
 }
 
 export default function Badge({ children, tone = 'amber', className = '' }) {

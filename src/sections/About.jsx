@@ -14,6 +14,7 @@ export default function About() {
     <section id="about" className="px-5 py-20">
       <div className="mx-auto max-w-6xl">
         <SectionLabel
+          module="01"
           title={tr({ id: 'Profil & Latar Belakang', en: 'Profile & Background' })}
           kicker={tr(profile.summary)}
         />
@@ -22,22 +23,22 @@ export default function About() {
           {/* Kolom kiri: pendidikan + CV */}
           <div className="space-y-6">
             <Card>
-              <h3 className="font-display text-xl font-semibold text-surface-fg">
+              <h3 className="font-display text-xl font-bold text-surface-fg">
                 {t('about.education')}
               </h3>
-              <p className="mt-3 font-body font-medium text-clay">
+              <p className="mt-3 font-body font-semibold text-amber">
                 {tr(education.degree)}
               </p>
               <p className="font-body text-sm text-surface-fg/70">
                 {tr(education.school)}
               </p>
 
-              <div className="mt-4 flex items-center gap-3">
-                <div className="rounded-lg bg-amber/10 px-3 py-2">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-sage">
+              <div className="mt-5 flex items-center gap-3">
+                <div className="rounded-xl bg-amber-alpha px-3 py-2">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-amber">
                     {t('about.gpa')}
                   </span>
-                  <p className="font-display text-lg font-semibold text-surface-fg">
+                  <p className="font-display text-lg font-bold text-surface-fg">
                     {education.gpa}
                   </p>
                 </div>
@@ -52,10 +53,10 @@ export default function About() {
             </Card>
 
             <Card>
-              <h3 className="font-display text-xl font-semibold text-surface-fg">
+              <h3 className="font-display text-xl font-bold text-surface-fg">
                 {t('about.extraSkills')}
               </h3>
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-sage">
+              <p className="mt-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-sage">
                 {t('about.softSkills')}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -78,14 +79,11 @@ export default function About() {
           {/* Kolom kanan: timeline pengalaman + keahlian */}
           <div className="space-y-8">
             <div>
-              <h3 className="mb-5 flex items-center gap-2 font-display text-xl font-semibold text-surface-fg">
+              <h3 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-surface-fg">
                 {t('about.experience')}
-                <span className="font-mono text-xs font-normal text-sage">
-                  {t('about.teachingSchedule')}
-                </span>
               </h3>
 
-              <ol className="relative space-y-6 border-l-2 border-amber/30 pl-6">
+              <ol className="relative space-y-8 border-l-2 border-ink/10 pl-6">
                 {experience.map((e) => (
                   <li key={e.id} className="relative">
                     {/* titik timeline */}
@@ -93,26 +91,26 @@ export default function About() {
                       className={[
                         'absolute -left-[31px] top-1 h-4 w-4 rounded-full border-2',
                         e.current
-                          ? 'border-clay bg-amber'
-                          : 'border-sage bg-cream',
+                          ? 'border-amber bg-surface'
+                          : 'border-ink/20 bg-surface',
                       ].join(' ')}
                     />
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                      <h4 className="font-body font-semibold text-surface-fg">
+                      <h4 className="font-body font-bold text-surface-fg">
                         {tr(e.role)}
                       </h4>
-                      <span className="font-mono text-xs text-clay">
+                      <span className="font-mono text-xs font-medium text-amber">
                         {e.period}
                       </span>
                     </div>
-                    <p className="font-body text-sm text-sage">{tr(e.org)}</p>
-                    <ul className="mt-2 space-y-1.5">
+                    <p className="font-body text-sm font-medium text-sage">{tr(e.org)}</p>
+                    <ul className="mt-3 space-y-2">
                       {e.details.map((d, i) => (
                         <li
                           key={i}
-                          className="flex gap-2 font-body text-sm leading-relaxed text-surface-fg/75"
+                          className="flex gap-2.5 font-body text-sm leading-relaxed text-surface-fg/75"
                         >
-                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber" />
+                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink/20" />
                           {tr(d)}
                         </li>
                       ))}
@@ -122,28 +120,22 @@ export default function About() {
               </ol>
             </div>
 
-            {/* Keahlian per kategori */}
-            <div>
-              <h3 className="mb-5 font-display text-xl font-semibold text-surface-fg">
-                {t('about.skills')}
+            {/* Soft Skills digabungkan di About */}
+            <Card>
+              <h3 className="font-display text-xl font-bold text-surface-fg">
+                {t('about.extraSkills')}
               </h3>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {skillGroups.map((g) => (
-                  <Card key={g.tone + tr(g.category)} className="p-5">
-                    <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-sage">
-                      {tr(g.category)}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {g.items.map((it, i) => (
-                        <Badge key={i} tone={g.tone}>
-                          {tr(it)}
-                        </Badge>
-                      ))}
-                    </div>
-                  </Card>
+              <p className="mt-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-sage">
+                {t('about.softSkills')}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {softSkills.map((s, i) => (
+                  <Badge key={i} tone="clay">
+                    {tr(s)}
+                  </Badge>
                 ))}
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       </div>

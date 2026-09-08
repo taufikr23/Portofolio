@@ -1,35 +1,46 @@
 @import 'tailwindcss';
 
 /* ─────────────────────────────────────────────
-   Design System — Tema Mentor/Educator
-   "Mengajar sambil membangun" — hangat, terstruktur
-   seperti modul pembelajaran.
+   Design System — Profesional & Modern
+   Tampilan bersih, elegan, dengan fokus pada keterbacaan
    ───────────────────────────────────────────── */
 
 @theme {
-  /* Palet warna (named hex) */
-  --color-cream: #fbf6ed; /* background utama, hangat seperti kertas modul */
-  --color-ink: #232019; /* teks utama, hampir hitam kehangatan */
-  --color-amber: #e8a33d; /* aksen utama — semangat mengajar */
-  --color-clay: #c15f3c; /* aksen sekunder — hover/CTA penting */
-  --color-sage: #6b7a5e; /* aksen tersier — badge sertifikat/pencapaian */
-  --color-paper: #f1eada; /* card/section alternate background */
+  /* Palet warna (modern slate/zinc dengan aksen indigo) */
+  --color-cream: #ffffff; /* background utama (putih bersih) */
+  --color-ink: #0f172a; /* teks utama (slate-900) */
+  --color-amber: #4f46e5; /* aksen utama — indigo-600 (profesional) */
+  --color-clay: #3b82f6; /* aksen sekunder — blue-500 (interaktif) */
+  --color-sage: #64748b; /* aksen tersier — slate-500 (netral/keterangan) */
+  --color-paper: #f8fafc; /* card/section alternate background (slate-50) */
 
-  /* Varian gelap dari cream (dark mode konsisten & hangat) */
-  --color-cream-dark: #1f1b14;
-  --color-paper-dark: #2a251c;
-  --color-ink-dark: #ece5d6;
+  /* Varian gelap (dark mode modern) */
+  --color-cream-dark: #0f172a; /* slate-900 */
+  --color-paper-dark: #1e293b; /* slate-800 */
+  --color-ink-dark: #f8fafc; /* slate-50 */
 
   /* Tipografi */
-  --font-display: 'Fraunces', ui-serif, Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
 
-  /* Shadow amber transparan — kesan "sticky note dari kelas" */
-  --shadow-card: 0 2px 4px -1px rgb(232 163 61 / 0.12),
-    0 8px 24px -6px rgb(232 163 61 / 0.18);
-  --shadow-card-hover: 0 6px 12px -2px rgb(193 95 60 / 0.2),
-    0 16px 40px -8px rgb(232 163 61 / 0.28);
+  /* Shadow modern & clean */
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-card-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Animasi Marquee */
+  --animate-marquee-left: marquee-left 25s linear infinite;
+  --animate-marquee-right: marquee-right 25s linear infinite;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
 /* ─── Base ─── */
@@ -38,6 +49,12 @@
   --bg: var(--color-cream);
   --bg-alt: var(--color-paper);
   --fg: var(--color-ink);
+  
+  /* Akses warna raw untuk opacity via tailwind */
+  --color-ink-rgb: 15 23 42;
+  --color-amber-rgb: 79 70 229;
+  --color-clay-rgb: 59 130 246;
+  --color-sage-rgb: 100 116 139;
 }
 
 html.dark {
@@ -45,13 +62,16 @@ html.dark {
   --bg: var(--color-cream-dark);
   --bg-alt: var(--color-paper-dark);
   --fg: var(--color-ink-dark);
+  
+  --color-ink-rgb: 248 250 252;
+  --color-amber-rgb: 99 102 241; /* indigo-500 untuk dark mode */
+  --color-clay-rgb: 96 165 250; /* blue-400 untuk dark mode */
+  --color-sage-rgb: 148 163 184; /* slate-400 untuk dark mode */
 }
 
 html {
   scroll-behavior: smooth;
-  /* offset agar anchor tidak tertutup navbar sticky */
   scroll-padding-top: 5rem;
-  /* cegah scroll/geser horizontal di HP bila ada elemen menjulur */
   overflow-x: hidden;
 }
 
@@ -81,13 +101,12 @@ body {
 
 /* Utility classes bound to theme-aware CSS vars */
 @layer utilities {
-  /* Sembunyikan scrollbar carousel sertifikat (tetap bisa di-scroll) */
   .cert-track {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge lawas */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   .cert-track::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
   }
   .bg-surface {
     background-color: var(--bg);
@@ -113,16 +132,28 @@ body {
   .shadow-card-hover {
     box-shadow: var(--shadow-card-hover);
   }
+  .bg-amber-alpha {
+    background-color: rgb(var(--color-amber-rgb) / 0.1);
+  }
+  .bg-clay-alpha {
+    background-color: rgb(var(--color-clay-rgb) / 0.1);
+  }
+  .bg-sage-alpha {
+    background-color: rgb(var(--color-sage-rgb) / 0.1);
+  }
+  .bg-ink-alpha {
+    background-color: rgb(var(--color-ink-rgb) / 0.05);
+  }
 }
 
-/* Selection warna hangat */
+/* Selection warna modern */
 ::selection {
-  background-color: rgb(232 163 61 / 0.35);
-  color: var(--color-ink);
+  background-color: rgb(var(--color-amber-rgb) / 0.2);
+  color: var(--fg);
 }
 
 /* Scrollbar tipis bertema */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-amber) transparent;
+  scrollbar-color: var(--color-sage) transparent;
 }

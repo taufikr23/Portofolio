@@ -7,11 +7,11 @@ const base =
 
 const variants = {
   primary:
-    'bg-amber text-ink hover:bg-clay hover:text-cream shadow-card hover:shadow-card-hover hover:-translate-y-0.5',
+    'bg-amber text-white hover:bg-clay hover:-translate-y-0.5 shadow-card hover:shadow-card-hover',
   secondary:
-    'bg-clay text-cream hover:bg-ink hover:-translate-y-0.5 shadow-card',
+    'bg-surface-alt border border-ink/10 text-surface-fg hover:border-amber hover:text-amber hover:-translate-y-0.5 shadow-card',
   ghost:
-    'border border-ink/25 text-surface-fg hover:border-amber hover:text-clay hover:-translate-y-0.5',
+    'border border-ink/20 text-surface-fg hover:border-amber hover:text-amber hover:-translate-y-0.5 bg-transparent',
 }
 
 export default function Button({

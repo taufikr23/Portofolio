@@ -8,15 +8,16 @@ export default function Kontak() {
   const { t, tr } = useLang()
 
   return (
-    <section id="kontak" className="bg-surface-alt px-5 py-20">
+    <section id="kontak" className="px-5 py-20 bg-surface">
       <div className="mx-auto max-w-6xl">
         <SectionLabel
+          module="05"
           title={tr({ id: 'Mari Terhubung', en: "Let's Connect" })}
           kicker={t('kicker.kontak')}
         />
 
-        <div className="mb-6 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/10 px-4 py-1.5 font-mono text-xs font-medium uppercase tracking-wider text-clay">
+        <div className="mb-8 flex justify-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-amber/20 bg-amber-alpha px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber">
             <span className="h-1.5 w-1.5 rounded-full bg-amber" />
             {tr(profile.role)}
           </span>
@@ -66,7 +67,7 @@ export default function Kontak() {
           </Card>
         </div>
 
-        <p className="mt-12 text-center font-display text-lg italic text-clay">
+        <p className="mt-12 text-center font-display text-lg font-medium text-sage">
           {t('contact.quote')}
         </p>
       </div>
@@ -77,16 +78,16 @@ export default function Kontak() {
 function ContactRow({ href, label, value, children, external, static: isStatic }) {
   const inner = (
     <>
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber/15 text-clay">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-alpha text-amber">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
           {children}
         </svg>
       </span>
       <span>
-        <span className="block font-mono text-[11px] uppercase tracking-wider text-sage">
+        <span className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-sage">
           {label}
         </span>
-        <span className="font-body text-sm font-medium text-surface-fg">
+        <span className="font-body text-sm font-semibold text-surface-fg">
           {value}
         </span>
       </span>
@@ -94,7 +95,7 @@ function ContactRow({ href, label, value, children, external, static: isStatic }
   )
 
   const cls =
-    'flex items-center gap-3 rounded-2xl border border-ink/10 bg-[color:var(--bg)] p-4 shadow-card transition-all'
+    'flex items-center gap-4 rounded-2xl border border-ink/10 bg-[color:var(--bg)] p-4 shadow-card transition-all'
 
   if (isStatic) return <div className={cls}>{inner}</div>
   return (
@@ -102,7 +103,7 @@ function ContactRow({ href, label, value, children, external, static: isStatic }
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
-      className={`${cls} hover:-translate-y-0.5 hover:border-amber/40`}
+      className={`${cls} hover:-translate-y-1 hover:border-amber/40 hover:shadow-card-hover`}
     >
       {inner}
     </a>
@@ -116,7 +117,7 @@ function SocialButton({ href, label, children }) {
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-lg border border-ink/15 text-surface-fg transition-all hover:-translate-y-0.5 hover:border-amber hover:text-clay"
+      className="flex h-10 w-10 items-center justify-center rounded-xl border border-ink/15 text-surface-fg transition-all hover:-translate-y-1 hover:border-amber hover:text-amber hover:bg-amber-alpha hover:shadow-card"
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {children}

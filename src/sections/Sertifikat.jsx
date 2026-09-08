@@ -45,9 +45,10 @@ export default function Sertifikat() {
   }, [filter])
 
   return (
-    <section id="sertifikat" className="bg-surface-alt px-5 py-20">
+    <section id="sertifikat" className="px-5 py-20 bg-surface">
       <div className="mx-auto max-w-6xl">
         <SectionLabel
+          module="03"
           title={tr({ id: 'Sertifikat & Pencapaian', en: 'Certificates & Achievements' })}
           kicker={t('kicker.sertifikat')}
         />
@@ -59,10 +60,10 @@ export default function Sertifikat() {
               key={cat.key}
               onClick={() => setFilter(cat.key)}
               className={[
-                'rounded-full px-4 py-1.5 font-mono text-xs font-medium transition-all',
+                'rounded-full px-4 py-2 font-mono text-xs font-semibold transition-all',
                 filter === cat.key
-                  ? 'bg-amber text-ink shadow-card'
-                  : 'border border-ink/15 text-surface-fg/70 hover:border-amber hover:text-clay',
+                  ? 'bg-ink text-surface shadow-card'
+                  : 'border border-ink/10 text-surface-fg/70 hover:border-ink/30 hover:text-surface-fg',
               ].join(' ')}
             >
               {tr(cat.label)}
@@ -84,23 +85,23 @@ export default function Sertifikat() {
                 className="group w-[calc(100%-0.5rem)] shrink-0 snap-start overflow-hidden rounded-2xl border border-ink/10 bg-[color:var(--bg)] text-left shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-amber/40 hover:shadow-card-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-amber sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
               >
                 {/* thumbnail — aspect ratio konsisten */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-paper">
+                <div className="relative aspect-[4/3] overflow-hidden bg-surface-alt">
                   {c.image ? (
                     <img
                       src={c.image}
                       alt={tr(c.title)}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover grayscale-[10%] transition-transform duration-500 group-hover:scale-105 group-hover:grayscale-0"
                     />
                   ) : (
                     <CertPlaceholder />
                   )}
-                  <span className="absolute right-3 top-3 rounded-full bg-cream/90 px-2.5 py-1 font-mono text-[10px] text-clay shadow-card">
+                  <span className="absolute right-3 top-3 rounded-full bg-surface/95 px-2.5 py-1 font-mono text-[10px] font-semibold text-amber shadow-card backdrop-blur-sm">
                     {categoryLabel(c.category)}
                   </span>
                   {/* overlay zoom */}
                   <span className="absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition-all duration-300 group-hover:bg-ink/30 group-hover:opacity-100">
-                    <span className="flex items-center gap-1.5 rounded-full bg-cream px-3 py-1.5 font-mono text-xs font-medium text-ink">
+                    <span className="flex items-center gap-1.5 rounded-full bg-surface px-4 py-2 font-mono text-xs font-semibold text-surface-fg">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                         <circle cx="11" cy="11" r="7" />
                         <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" />
@@ -110,12 +111,12 @@ export default function Sertifikat() {
                   </span>
                 </div>
 
-                <div className="p-4">
-                  <h3 className="font-display text-base font-semibold leading-snug text-surface-fg">
+                <div className="p-5">
+                  <h3 className="font-display text-base font-bold leading-snug text-surface-fg">
                     {tr(c.title)}
                   </h3>
-                  <p className="mt-1 font-body text-sm text-sage">{c.issuer}</p>
-                  <p className="mt-2 font-mono text-xs text-surface-fg/50">
+                  <p className="mt-1 font-body text-sm font-medium text-sage">{c.issuer}</p>
+                  <p className="mt-2 font-mono text-xs font-medium text-surface-fg/50">
                     {tr(c.date)}
                   </p>
                 </div>
@@ -130,9 +131,9 @@ export default function Sertifikat() {
                 type="button"
                 aria-label={t('cert.prev')}
                 onClick={() => scrollByPage(-1)}
-                className="absolute -left-3 top-[38%] flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-ink/10 bg-cream text-clay shadow-card transition hover:border-amber hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-amber sm:-left-5"
+                className="absolute -left-3 top-[38%] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-ink/10 bg-surface text-surface-fg shadow-card transition hover:border-amber hover:text-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-amber sm:-left-6"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M15 18l-6-6 6-6" />
                 </svg>
               </button>
@@ -140,9 +141,9 @@ export default function Sertifikat() {
                 type="button"
                 aria-label={t('cert.next')}
                 onClick={() => scrollByPage(1)}
-                className="absolute -right-3 top-[38%] flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-ink/10 bg-cream text-clay shadow-card transition hover:border-amber hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-amber sm:-right-5"
+                className="absolute -right-3 top-[38%] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-ink/10 bg-surface text-surface-fg shadow-card transition hover:border-amber hover:text-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-amber sm:-right-6"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
               </button>
@@ -165,7 +166,7 @@ export default function Sertifikat() {
       >
         {active && (
           <div>
-            <div className="aspect-[4/3] w-full bg-paper">
+            <div className="aspect-[4/3] w-full bg-surface-alt">
               {active.image ? (
                 <img
                   src={active.image}
@@ -176,12 +177,12 @@ export default function Sertifikat() {
                 <CertPlaceholder large />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-3 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-4 p-6">
               <div>
-                <h3 className="font-display text-lg font-semibold text-surface-fg">
+                <h3 className="font-display text-xl font-bold text-surface-fg">
                   {tr(active.title)}
                 </h3>
-                <p className="font-body text-sm text-sage">
+                <p className="font-body text-sm font-medium text-sage">
                   {active.issuer} · <span className="font-mono">{tr(active.date)}</span>
                 </p>
               </div>
@@ -190,7 +191,7 @@ export default function Sertifikat() {
                   href={active.verifyUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-ink/15 px-3 py-2 font-body text-sm font-medium text-clay transition hover:border-amber"
+                  className="inline-flex items-center gap-2 rounded-xl border border-ink/15 px-4 py-2 font-body text-sm font-semibold text-amber transition hover:border-amber hover:bg-amber-alpha"
                 >
                   {t('cert.verify')}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -209,8 +210,8 @@ export default function Sertifikat() {
 function CertPlaceholder({ large = false }) {
   const { t } = useLang()
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-paper to-sage/15">
-      <svg width={large ? 56 : 40} height={large ? 56 : 40} viewBox="0 0 24 24" fill="none" stroke="#6B7A5E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-surface-alt to-sage-alpha">
+      <svg width={large ? 56 : 40} height={large ? 56 : 40} viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-sage" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="6" />
         <path d="M8.2 13.9 7 22l5-3 5 3-1.2-8.1" />
       </svg>

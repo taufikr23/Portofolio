@@ -10,12 +10,12 @@ export default function Footer({ onJump }) {
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <button
             onClick={() => onJump?.('home')}
-            className="flex items-center gap-2 focus:outline-none"
+            className="flex items-center gap-3 focus:outline-none"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink font-display text-lg font-bold text-amber">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber font-display text-lg font-bold text-white shadow-card">
               T
             </span>
-            <span className="font-display text-lg font-semibold text-surface-fg">
+            <span className="font-display text-lg font-bold text-surface-fg">
               {profile.name}
             </span>
           </button>
@@ -35,7 +35,7 @@ export default function Footer({ onJump }) {
           </div>
         </div>
 
-        <p className="mt-8 text-center font-mono text-xs text-surface-fg/50">
+        <p className="mt-8 text-center font-mono text-[10px] font-medium text-surface-fg/50">
           © {new Date().getFullYear()} {profile.name} · {t('footer.builtWith')}
         </p>
       </div>
@@ -50,7 +50,7 @@ function SocialLink({ href, label, children }) {
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-lg border border-ink/15 text-surface-fg transition-all hover:-translate-y-0.5 hover:border-amber hover:text-clay"
+      className="flex h-10 w-10 items-center justify-center rounded-lg border border-ink/15 text-surface-fg transition-all hover:-translate-y-1 hover:border-amber hover:text-amber hover:bg-amber-alpha"
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {children}
