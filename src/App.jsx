@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ProgressRail from './components/ProgressRail'
+import WelcomeDoors from './components/ui/WelcomeDoors'
 import Reveal from './components/ui/Reveal'
 import Home from './sections/Home'
 import About from './sections/About'
@@ -58,6 +59,9 @@ export default function App() {
 
   return (
     <>
+      {/* Animasi pintu pembuka saat web pertama kali dibuka */}
+      <WelcomeDoors />
+
       {/* skip link aksesibilitas */}
       <a
         href="#home"

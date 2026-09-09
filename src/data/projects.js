@@ -27,7 +27,7 @@ export const projects = [
       { id: 'Kontainerisasi menyeluruh dengan Docker & Docker Compose untuk deployment dan skalabilitas', en: 'Full containerization with Docker & Docker Compose for deployment and scalability' },
     ],
     liveUrl: '',
-    githubUrl: '',
+    githubUrl: 'https://github.com/taufikr23/akademik',
   },
   {
     id: 'quizsep',
@@ -45,7 +45,7 @@ export const projects = [
       { id: 'Review jawaban dengan penjelasan dan analisis kesalahan per soal', en: 'Answer review with explanations and per-question error analysis' },
       { id: 'Dashboard admin dengan manajemen soal CRUD, manajemen pengguna, dan laporan aktivitas platform', en: 'Admin dashboard with CRUD question management, user management, and platform activity reports' },
     ],
-    liveUrl: '',
+    liveUrl: 'https://quizsep.vercel.app/',
     githubUrl: 'https://github.com/taufikr23/quizsep',
   },
   {
