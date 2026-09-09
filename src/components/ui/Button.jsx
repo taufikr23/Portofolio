@@ -1,17 +1,13 @@
-// src/components/ui/Button.jsx
-// variant: 'primary' (amber), 'secondary' (clay), 'ghost' (outline)
-// Bisa jadi <a> (kalau ada `href`) atau <button>.
-
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-body text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)] disabled:opacity-60 disabled:cursor-not-allowed'
+  'inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-display text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f46e5] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1020] disabled:opacity-60 disabled:cursor-not-allowed hover:scale-105 active:scale-95'
 
 const variants = {
   primary:
-    'bg-amber text-white hover:bg-clay hover:-translate-y-0.5 shadow-card hover:shadow-card-hover',
+    'bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] text-white shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]',
   secondary:
-    'bg-surface-alt border border-ink/10 text-surface-fg hover:border-amber hover:text-amber hover:-translate-y-0.5 shadow-card',
+    'glass-panel text-white hover:bg-white/10 hover:border-[#4f46e5]/50 hover:text-[#c7d2fe]',
   ghost:
-    'border border-ink/20 text-surface-fg hover:border-amber hover:text-amber hover:-translate-y-0.5 bg-transparent',
+    'border border-white/10 text-slate-300 hover:border-[#4f46e5]/50 hover:text-white bg-transparent hover:bg-[#4f46e5]/10',
 }
 
 export default function Button({
@@ -30,3 +26,4 @@ export default function Button({
     </Tag>
   )
 }
+

@@ -1,41 +1,22 @@
-// src/components/ProjectCarousel.jsx
-// Carousel proyek dengan efek 3D: kartu tengah normal, kartu kiri/kanan
-// mengecil + blur + mundur ke belakang. Reusable — terima `items` (default
-// dari data proyek + 1 dummy). State `active` menentukan kartu tengah.
-
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Badge from './ui/Badge'
 import Modal from './ui/Modal'
+import DoorLightbox from './ui/DoorLightbox'
 import { projects } from '../data/projects'
 import { useLang } from '../context/LanguageContext'
 
-// Semua kartu carousel berasal dari data proyek asli.
 const defaultItems = projects
-
-// Style per posisi relatif terhadap kartu tengah (2 kiri + 1 tengah + 2 kanan).
-// Tetangga luar (±2) lebih kecil, lebih pudar, lebih blur, dan di belakang.
-const POSITION_STYLES = {
-  0: { transform: 'translateX(0) scale(1)', opacity: 1, filter: 'blur(0px)', zIndex: 30 },
-  '-1': { transform: 'translateX(-230px) scale(0.85)', opacity: 0.7, filter: 'blur(1.5px)', zIndex: 20 },
-  1: { transform: 'translateX(230px) scale(0.85)', opacity: 0.7, filter: 'blur(1.5px)', zIndex: 20 },
-  '-2': { transform: 'translateX(-420px) scale(0.7)', opacity: 0.4, filter: 'blur(3px)', zIndex: 10 },
-  2: { transform: 'translateX(420px) scale(0.7)', opacity: 0.4, filter: 'blur(3px)', zIndex: 10 },
-}
-
-// Kartu di luar 5 posisi terlihat: sembunyikan di belakang tengah.
-const HIDDEN_STYLE = { transform: 'translateX(0) scale(0.6)', opacity: 0, filter: 'blur(4px)', zIndex: 0 }
 
 export default function ProjectCarousel({ items = defaultItems }) {
   const { t } = useLang()
   const [active, setActive] = useState(0)
-  const [detail, setDetail] = useState(null) // proyek yang dibuka di lightbox
+  const [detail, setDetail] = useState(null)
   const total = items.length
 
   const prev = () => setActive((i) => (i - 1 + total) % total)
   const next = () => setActive((i) => (i + 1) % total)
 
-  // Posisi relatif tiap kartu terhadap kartu aktif: 0 = tengah,
-  // -1/-2 = kiri, +1/+2 = kanan (dinormalisasi melingkar).
   const relativePos = (index) => {
     let diff = index - active
     if (diff > total / 2) diff -= total
@@ -45,56 +26,68 @@ export default function ProjectCarousel({ items = defaultItems }) {
 
   return (
     <div className="w-full">
-      {/* Panggung carousel — overflow-hidden agar kartu samping (±420px) tidak
-          menjulur keluar viewport dan memicu scroll horizontal di HP. */}
-      <div className="relative mx-auto flex h-[34rem] max-w-5xl items-center justify-center overflow-hidden [perspective:1200px]">
-        {items.map((p, index) => {
-          const pos = relativePos(index)
-          const isCenter = pos === 0
+      <div className="relative mx-auto flex h-[40rem] max-w-6xl items-center justify-center overflow-visible perspective-1000">
+        <AnimatePresence initial={false}>
+          {items.map((p, index) => {
+            const pos = relativePos(index)
+            const isCenter = pos === 0
+            const isVisible = pos >= -2 && pos <= 2
+            
+            if (!isVisible) return null
 
-          // Style per posisi — transisi halus lewat CSS transition duration-500.
-          // 0 = tengah, ±1 = tetangga dalam, ±2 = tetangga luar (lebih kecil,
-          // lebih pudar, lebih blur). Selebihnya disembunyikan.
-          const style = POSITION_STYLES[pos] ?? HIDDEN_STYLE
-          const isVisible = pos >= -2 && pos <= 2
+            let x = 0
+            let z = 0
+            let rotateY = 0
+            let scale = 1
+            let opacity = 1
+            let filter = 'blur(0px)'
 
-          return (
-            <article
-              key={p.id}
-              aria-hidden={!isCenter}
-              onClick={() => (isCenter ? setDetail(p) : isVisible && setActive(index))}
-              style={style}
-              className={[
-                'absolute h-[30rem] w-96 select-none rounded-2xl border bg-surface-alt shadow-card transition-all duration-500 ease-out',
-                isCenter
-                  ? 'cursor-pointer border-amber/40 hover:-translate-y-2 hover:shadow-card-hover'
-                  : isVisible
-                    ? 'cursor-pointer border-ink/10'
-                    : 'pointer-events-none border-ink/10',
-              ].join(' ')}
-            >
-              <ProjectCard project={p} interactive={isCenter} />
-            </article>
-          )
-        })}
+            if (pos === -1) { x = -280; z = -100; rotateY = 15; scale = 0.85; opacity = 0.6; filter = 'blur(2px)' }
+            else if (pos === 1) { x = 280; z = -100; rotateY = -15; scale = 0.85; opacity = 0.6; filter = 'blur(2px)' }
+            else if (pos === -2) { x = -500; z = -250; rotateY = 25; scale = 0.7; opacity = 0.3; filter = 'blur(4px)' }
+            else if (pos === 2) { x = 500; z = -250; rotateY = -25; scale = 0.7; opacity = 0.3; filter = 'blur(4px)' }
+
+            return (
+              <motion.article
+                key={p.id}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ 
+                  x, 
+                  z, 
+                  rotateY, 
+                  scale, 
+                  opacity, 
+                  filter,
+                  zIndex: isCenter ? 30 : 30 - Math.abs(pos) * 10
+                }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                onClick={() => (isCenter ? setDetail(p) : setActive(index))}
+                className={`absolute w-full max-w-sm lg:max-w-md h-[34rem] rounded-3xl preserve-3d glass-panel border ${
+                  isCenter 
+                    ? 'cursor-pointer border-[#4f46e5]/50 shadow-[0_0_40px_rgba(79,70,229,0.3)]' 
+                    : 'cursor-pointer border-white/5'
+                }`}
+              >
+                <ProjectCard project={p} interactive={isCenter} />
+              </motion.article>
+            )
+          })}
+        </AnimatePresence>
       </div>
 
-      {/* Kontrol */}
-      <div className="mt-8 flex items-center justify-center gap-6">
+      <div className="mt-8 flex items-center justify-center gap-8">
         <ArrowButton direction="left" onClick={prev} label={t('project.prev')} />
 
-        {/* Indikator dot */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {items.map((p, index) => (
             <button
               key={p.id}
               onClick={() => setActive(index)}
               aria-label={`${t('project.goTo')} ${p.title}`}
-              aria-current={index === active}
-              className={[
-                'h-2 rounded-full transition-all duration-300',
-                index === active ? 'w-8 bg-amber' : 'w-2 bg-ink/20 hover:bg-ink/40',
-              ].join(' ')}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === active ? 'w-10 bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] shadow-[0_0_10px_rgba(79,70,229,0.5)]' : 'w-2 bg-slate-700 hover:bg-slate-500'
+              }`}
             />
           ))}
         </div>
@@ -102,152 +95,172 @@ export default function ProjectCarousel({ items = defaultItems }) {
         <ArrowButton direction="right" onClick={next} label={t('project.next')} />
       </div>
 
-      {/* Lightbox detail proyek */}
-      <Modal open={!!detail} onClose={() => setDetail(null)} label={detail?.title}>
-        {detail && <ProjectDetail project={detail} />}
+      <Modal open={!!detail} onClose={() => setDetail(null)} label={detail?.title} wide fit>
+        {detail && <ProjectDetail project={detail} interactive={true} />}
       </Modal>
     </div>
   )
 }
 
-// Isi lightbox — foto besar + deskripsi lengkap + fitur + stack + tombol.
-function ProjectDetail({ project }) {
+function ProjectDetail({ project, interactive }) {
   const { t, tr } = useLang()
   const { title, tagline, image, description, stack, features, liveUrl, githubUrl } = project
 
   return (
-    <div>
-      <div className="aspect-[16/9] w-full bg-paper">
-        {image ? (
-          <img src={image} alt={`Screenshot ${title}`} className="h-full w-full object-contain" />
-        ) : (
-          <ProjectPlaceholder title={title} />
-        )}
+    <DoorLightbox>
+      {/* Gambar di kiri — utuh, deskripsi di kanan — semua muat tanpa scroll */}
+      <div className="bg-[#0B1020]">
+      <div className="md:grid md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+        <div className="flex items-center justify-center bg-[#111827]">
+          {image ? (
+            <img src={image} alt={`Screenshot ${title}`} className="w-full h-auto max-h-[48vh] object-contain" />
+          ) : (
+            <ProjectPlaceholder title={title} />
+          )}
+        </div>
+
+        <div className="p-5 sm:p-6">
+          {tagline && <span className="font-mono text-[10px] font-bold text-[#8b5cf6] uppercase tracking-wider">{tr(tagline)}</span>}
+          <h3 className="font-display text-xl sm:text-2xl font-bold text-white mt-0.5 mb-2">{title}</h3>
+          <p className="font-body text-[13px] leading-snug text-slate-400 line-clamp-6">
+            {tr(description)}
+          </p>
+        </div>
       </div>
 
-      <div className="p-6">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h3 className="font-display text-2xl font-bold text-surface-fg">{title}</h3>
-          {tagline && <span className="font-mono text-xs font-semibold text-sage">{tr(tagline)}</span>}
-        </div>
-
-        <p className="mt-4 font-body text-sm leading-relaxed text-surface-fg/80">
-          {tr(description)}
-        </p>
-
+      {/* Fitur + stack + link — rapat di bawah */}
+      <div className="px-5 sm:px-6 pt-4 pb-5 border-t border-white/10">
         {features?.length > 0 && (
-          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-            {features.map((f, i) => (
-              <li key={i} className="flex items-start gap-2.5 font-body text-sm font-medium text-surface-fg/75">
-                <svg className="mt-0.5 shrink-0 text-amber" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-                {tr(f)}
-              </li>
-            ))}
-          </ul>
+          <div className="mb-4">
+            <h4 className="font-display text-sm font-bold text-white mb-2.5 flex items-center gap-1.5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Key Features
+            </h4>
+            <ul className="grid gap-2 sm:grid-cols-3">
+              {features.map((f, i) => (
+                <li key={i} className="flex items-start gap-2 font-body text-xs font-medium text-slate-400 glass-panel px-3 py-2 rounded-lg border border-white/5">
+                  <svg className="mt-0.5 shrink-0 text-[#4f46e5]" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  {tr(f)}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {stack.map((s) => (
-            <Badge key={s} tone="amber">
-              {s}
-            </Badge>
-          ))}
+        <div className="mb-4">
+          <h4 className="font-display text-sm font-bold text-white mb-2.5 flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            Tech Stack
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {stack.map((s) => (
+              <span key={s} className="px-2 py-1 rounded-md bg-[#4f46e5]/10 border border-[#4f46e5]/20 text-xs font-medium text-[#c7d2fe]">
+                {s}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3">
           <CardLink href={liveUrl} primary interactive={interactive} disabledLabel={t('project.demoSoon')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
             </svg>
             {t('project.liveDemo')}
           </CardLink>
           <CardLink href={githubUrl} interactive={interactive} disabledLabel={t('project.repoPrivate')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3-.3 6-1.5 6-6.6a5 5 0 0 0-1.4-3.5 4.7 4.7 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.6.3 5.5.6 5.5.6a4.7 4.7 0 0 0-.1 3.5A5 5 0 0 0 4 7.6c0 5.1 3 6.3 6 6.6a3.4 3.4 0 0 0-1 2.6V21" />
             </svg>
             {t('project.github')}
           </CardLink>
         </div>
       </div>
-    </div>
+      </div>
+    </DoorLightbox>
   )
 }
 
-// Isi kartu — dipakai oleh setiap slide.
 function ProjectCard({ project, interactive }) {
   const { t, tr } = useLang()
   const { title, tagline, image, description, stack, liveUrl, githubUrl } = project
 
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-2xl">
-      {/* Screenshot proyek (placeholder bertema bila belum ada) */}
-      <div className="relative aspect-[16/9] shrink-0 overflow-hidden bg-surface-alt">
+    <div className="group flex h-full flex-col overflow-hidden relative">
+      <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-[#111827]">
         {image ? (
           <img
             src={image}
             alt={`Screenshot ${title}`}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
           />
         ) : (
           <ProjectPlaceholder title={title} />
         )}
-        {/* overlay petunjuk perbesar — hanya untuk kartu tengah */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-transparent opacity-90" />
+        
         {interactive && (
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition-all duration-300 group-hover:bg-ink/40 group-hover:opacity-100">
-            <span className="flex items-center gap-2 rounded-xl bg-surface px-4 py-2 font-mono text-xs font-semibold text-surface-fg shadow-card">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+          <div className="absolute inset-0 bg-[#070B17]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+            <motion.div 
+              initial={{ scale: 0 }} 
+              whileHover={{ scale: 1.1 }}
+              animate={{ scale: 1 }} 
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] flex items-center gap-2 text-white shadow-glow font-bold text-sm"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                 <circle cx="11" cy="11" r="7" />
                 <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" />
               </svg>
-              {t('project.zoom')}
-            </span>
-          </span>
+              View Details
+            </motion.div>
+          </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-baseline justify-between gap-2">
-          <h3 className="font-display text-xl font-bold text-surface-fg">{title}</h3>
-          {tagline && <span className="font-mono text-[10px] font-medium text-sage">{tr(tagline)}</span>}
+      <div className="flex flex-1 flex-col p-6 lg:p-8 relative z-10 bg-gradient-to-b from-[#111827]/80 to-[#111827]">
+        <div className="flex flex-col gap-1 mb-3">
+          {tagline && <span className="font-mono text-[10px] font-bold text-[#8b5cf6] uppercase tracking-wider">{tr(tagline)}</span>}
+          <h3 className="font-display text-2xl font-bold text-white">{title}</h3>
         </div>
 
-        <p className="mt-3 font-body text-sm leading-relaxed text-surface-fg/75 line-clamp-3">
+        <p className="font-body text-sm leading-relaxed text-slate-400 line-clamp-3 mb-6">
           {tr(description)}
         </p>
 
-        {/* Stack teknologi */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {stack.slice(0, 4).map((s) => (
-            <Badge key={s} tone="amber">
-              {s}
-            </Badge>
-          ))}
-          {stack.length > 4 && (
-            <Badge tone="sage">+{stack.length - 4}</Badge>
-          )}
-        </div>
+        <div className="mt-auto">
+          <div className="flex flex-wrap gap-2 mb-6">
+            {stack.slice(0, 3).map((s) => (
+              <span key={s} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-slate-300">
+                {s}
+              </span>
+            ))}
+            {stack.length > 3 && (
+              <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-slate-500">
+                +{stack.length - 3}
+              </span>
+            )}
+          </div>
 
-        {/* Tombol — hanya interaktif untuk kartu tengah. stopPropagation agar
-            klik tombol tidak ikut membuka lightbox. */}
-        <div
-          className="mt-auto flex flex-wrap gap-3 pt-5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <CardLink href={liveUrl} primary interactive={interactive} disabledLabel={t('project.demoSoon')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            </svg>
-            {t('project.liveDemo')}
-          </CardLink>
-          <CardLink href={githubUrl} interactive={interactive} disabledLabel={t('project.repoPrivate')}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3-.3 6-1.5 6-6.6a5 5 0 0 0-1.4-3.5 4.7 4.7 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.6.3 5.5.6 5.5.6a4.7 4.7 0 0 0-.1 3.5A5 5 0 0 0 4 7.6c0 5.1 3 6.3 6 6.6a3.4 3.4 0 0 0-1 2.6V21" />
-            </svg>
-            {t('project.github')}
-          </CardLink>
+          <div
+            className="flex flex-wrap gap-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CardLink href={liveUrl} primary interactive={interactive} disabledLabel={t('project.demoSoon')}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              </svg>
+              Demo
+            </CardLink>
+            <CardLink href={githubUrl} interactive={interactive} disabledLabel={t('project.repoPrivate')}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3-.3 6-1.5 6-6.6a5 5 0 0 0-1.4-3.5 4.7 4.7 0 0 0-.1-3.5s-1.1-.3-3.5 1.3a12 12 0 0 0-6 0C6.6.3 5.5.6 5.5.6a4.7 4.7 0 0 0-.1 3.5A5 5 0 0 0 4 7.6c0 5.1 3 6.3 6 6.6a3.4 3.4 0 0 0-1 2.6V21" />
+              </svg>
+              Code
+            </CardLink>
+          </div>
         </div>
       </div>
     </div>
@@ -255,14 +268,13 @@ function ProjectCard({ project, interactive }) {
 }
 
 function CardLink({ href, primary, interactive, disabledLabel, children }) {
-  // Kartu samping tidak boleh menerima fokus/klik link.
   const tabIndex = interactive ? 0 : -1
 
   if (!href) {
     return (
-      <span className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl border border-dashed border-ink/20 px-4 py-2 font-body text-sm font-semibold text-surface-fg/40">
+      <span className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-2 font-body text-sm font-semibold text-slate-500">
         {children}
-        <span className="font-mono text-[10px]">· {disabledLabel}</span>
+        <span className="font-mono text-[10px]">A {disabledLabel}</span>
       </span>
     )
   }
@@ -273,12 +285,11 @@ function CardLink({ href, primary, interactive, disabledLabel, children }) {
       target="_blank"
       rel="noreferrer"
       tabIndex={tabIndex}
-      className={[
-        'inline-flex items-center gap-2 rounded-xl px-4 py-2 font-body text-sm font-bold transition-all hover:-translate-y-1',
+      className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-body text-sm font-bold transition-all hover:scale-105 ${
         primary
-          ? 'bg-amber text-white shadow-card hover:shadow-card-hover hover:bg-clay'
-          : 'border border-ink/20 text-surface-fg hover:border-amber hover:text-amber shadow-sm',
-      ].join(' ')}
+          ? 'bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] text-white shadow-glow'
+          : 'glass-panel text-white hover:bg-white/10'
+      }`}
     >
       {children}
     </a>
@@ -291,27 +302,25 @@ function ArrowButton({ direction, onClick, label }) {
     <button
       onClick={onClick}
       aria-label={label}
-      className="group flex h-12 w-12 items-center justify-center rounded-full border border-ink/10 bg-surface text-surface-fg shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-amber hover:text-amber hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+      className="group flex h-14 w-14 items-center justify-center rounded-full glass-panel border border-white/10 text-white transition-all duration-300 hover:scale-110 hover:border-[#4f46e5] hover:bg-white/5 hover:text-[#4f46e5] hover:shadow-[0_0_20px_rgba(79,70,229,0.3)] z-50 focus:outline-none"
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {isLeft ? <path d="m15 18-6-6 6-6" /> : <path d="m9 18 6-6-6-6" />}
       </svg>
     </button>
   )
 }
 
-// Placeholder bertema saat screenshot proyek belum tersedia.
 function ProjectPlaceholder({ title }) {
   const { t } = useLang()
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-surface-alt to-amber-alpha">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-amber" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#111827] to-[#4f46e5]/20">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#4f46e5] opacity-50" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
         <path d="M8 21h8M12 17v4" />
       </svg>
-      <div className="text-center">
-        <span className="block font-display text-sm font-bold text-surface-fg">{title}</span>
-        <span className="mt-1 block font-mono text-[10px] text-sage">{t('project.screenshotPlaceholder') || `Screenshot ${title}`}</span>
+      <div className="text-center opacity-50">
+        <span className="block font-mono text-[10px] text-slate-400 uppercase tracking-widest">{t('project.screenshotPlaceholder') || `Screenshot`}</span>
       </div>
     </div>
   )

@@ -1,34 +1,32 @@
 @import 'tailwindcss';
 
-/* ─────────────────────────────────────────────
-   Design System — Profesional & Modern
-   Tampilan bersih, elegan, dengan fokus pada keterbacaan
-   ───────────────────────────────────────────── */
-
 @theme {
-  /* Palet warna (modern slate/zinc dengan aksen indigo) */
-  --color-cream: #ffffff; /* background utama (putih bersih) */
-  --color-ink: #0f172a; /* teks utama (slate-900) */
-  --color-amber: #4f46e5; /* aksen utama — indigo-600 (profesional) */
-  --color-clay: #3b82f6; /* aksen sekunder — blue-500 (interaktif) */
-  --color-sage: #64748b; /* aksen tersier — slate-500 (netral/keterangan) */
-  --color-paper: #f8fafc; /* card/section alternate background (slate-50) */
+  /* Futuristic 3D Portfolio Theme */
+  --color-cream: #0B1020; /* Dark Background */
+  --color-ink: #f8fafc; /* Light Text */
+  
+  /* Accents */
+  --color-amber: #4f46e5; /* Indigo */
+  --color-clay: #8b5cf6; /* Violet */
+  --color-sage: #94a3b8; /* Slate */
+  
+  --color-paper: #111827; /* Card background */
 
-  /* Varian gelap (dark mode modern) */
-  --color-cream-dark: #0f172a; /* slate-900 */
-  --color-paper-dark: #1e293b; /* slate-800 */
-  --color-ink-dark: #f8fafc; /* slate-50 */
+  /* Dark mode overrides (keeping them same since it's always dark) */
+  --color-cream-dark: #070B17;
+  --color-paper-dark: #111827;
+  --color-ink-dark: #f8fafc;
 
-  /* Tipografi */
+  /* Typography */
   --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
 
-  /* Shadow modern & clean */
-  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-  --shadow-card-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* 3D Shadows & Glassmorphism */
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-card-hover: 0 16px 40px 0 rgba(79, 70, 229, 0.2);
+  --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.4);
 
-  /* Animasi Marquee */
   --animate-marquee-left: marquee-left 25s linear infinite;
   --animate-marquee-right: marquee-right 25s linear infinite;
 }
@@ -43,36 +41,29 @@
   100% { transform: translateX(0); }
 }
 
-/* ─── Base ─── */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --bg: var(--color-cream);
   --bg-alt: var(--color-paper);
   --fg: var(--color-ink);
   
-  /* Akses warna raw untuk opacity via tailwind */
-  --color-ink-rgb: 15 23 42;
+  --color-ink-rgb: 248 250 252;
   --color-amber-rgb: 79 70 229;
-  --color-clay-rgb: 59 130 246;
-  --color-sage-rgb: 100 116 139;
+  --color-clay-rgb: 139 92 246;
+  --color-sage-rgb: 148 163 184;
 }
 
 html.dark {
-  color-scheme: dark;
   --bg: var(--color-cream-dark);
   --bg-alt: var(--color-paper-dark);
   --fg: var(--color-ink-dark);
-  
-  --color-ink-rgb: 248 250 252;
-  --color-amber-rgb: 99 102 241; /* indigo-500 untuk dark mode */
-  --color-clay-rgb: 96 165 250; /* blue-400 untuk dark mode */
-  --color-sage-rgb: 148 163 184; /* slate-400 untuk dark mode */
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
   overflow-x: hidden;
+  background-color: var(--bg);
 }
 
 body {
@@ -84,23 +75,32 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
+  background-attachment: fixed;
+  transition: none; /* No transition for background since we want a constant dark mode */
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-/* Utility classes bound to theme-aware CSS vars */
 @layer utilities {
+  /* Anchor/scroll-spy aman-transform: batas section diukur dari layout,
+     bukan dari transform animasi (blur/translate) pembungkusnya. */
+  .anchor-safe {
+    transform: none !important;
+    filter: none !important;
+    will-change: auto !important;
+    perspective: none !important;
+  }
   .cert-track {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -108,52 +108,48 @@ body {
   .cert-track::-webkit-scrollbar {
     display: none;
   }
-  .bg-surface {
-    background-color: var(--bg);
+  .bg-surface { background-color: var(--bg); }
+  .bg-surface-alt { background-color: var(--bg-alt); }
+  .text-surface-fg { color: var(--fg); }
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .font-mono { font-family: var(--font-mono); }
+  
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-card-hover { box-shadow: var(--shadow-card-hover); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  
+  .bg-amber-alpha { background-color: rgba(79, 70, 229, 0.15); }
+  .bg-clay-alpha { background-color: rgba(139, 92, 246, 0.15); }
+  .bg-sage-alpha { background-color: rgba(148, 163, 184, 0.15); }
+  .bg-ink-alpha { background-color: rgba(248, 250, 252, 0.05); }
+
+  .glass-panel {
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .bg-surface-alt {
-    background-color: var(--bg-alt);
+
+  .perspective-1000 {
+    perspective: 1000px;
   }
-  .text-surface-fg {
-    color: var(--fg);
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
   }
-  .font-display {
-    font-family: var(--font-display);
-  }
-  .font-body {
-    font-family: var(--font-body);
-  }
-  .font-mono {
-    font-family: var(--font-mono);
-  }
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
-  .shadow-card-hover {
-    box-shadow: var(--shadow-card-hover);
-  }
-  .bg-amber-alpha {
-    background-color: rgb(var(--color-amber-rgb) / 0.1);
-  }
-  .bg-clay-alpha {
-    background-color: rgb(var(--color-clay-rgb) / 0.1);
-  }
-  .bg-sage-alpha {
-    background-color: rgb(var(--color-sage-rgb) / 0.1);
-  }
-  .bg-ink-alpha {
-    background-color: rgb(var(--color-ink-rgb) / 0.05);
+
+  .backface-hidden {
+    backface-visibility: hidden;
   }
 }
 
-/* Selection warna modern */
 ::selection {
-  background-color: rgb(var(--color-amber-rgb) / 0.2);
+  background-color: rgba(79, 70, 229, 0.3);
   color: var(--fg);
 }
 
-/* Scrollbar tipis bertema */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-sage) transparent;
+  scrollbar-color: rgba(79, 70, 229, 0.5) transparent;
 }

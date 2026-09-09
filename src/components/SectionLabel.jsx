@@ -1,24 +1,30 @@
-// src/components/SectionLabel.jsx
-// Header bergaya "modul pembelajaran": label mono + judul serif + garis amber.
+import { motion } from 'framer-motion'
 import { useLang } from '../context/LanguageContext'
 
 export default function SectionLabel({ module, title, kicker }) {
   const { t } = useLang()
   return (
-    <div className="mb-12">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
+      className="mb-16 text-center flex flex-col items-center"
+    >
       {module && (
-        <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-amber">
+        <span className="font-mono text-sm tracking-[0.2em] text-[#4f46e5] uppercase mb-4">
           {t('label.module')} {module}
         </span>
       )}
-      <h2 className="font-display text-3xl font-bold tracking-tight text-surface-fg sm:text-4xl">
+      <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
         {title}
       </h2>
       {kicker && (
-        <p className="mt-4 max-w-2xl font-body text-base leading-relaxed text-surface-fg/70">
+        <p className="max-w-2xl font-body text-slate-400 text-lg">
           {kicker}
         </p>
       )}
-    </div>
+    </motion.div>
   )
 }
+

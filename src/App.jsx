@@ -16,24 +16,20 @@ import { useLang } from './context/LanguageContext'
 export default function App() {
   const { progress, active, lockActive } = useScrollSpy(sectionIds)
   const { t } = useLang()
-  // Baca preferensi tema sinkron sebelum render pertama supaya tidak
-  // tertimpa nilai default dan tetap konsisten setelah refresh.
-  const [dark, setDark] = useState(() => {
-    const saved = localStorage.getItem('theme')
-    if (saved) return saved === 'dark'
-    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
-  })
+  
+  // Force dark mode
+  const dark = true;
 
-  // Terapkan class .dark ke <html> + simpan preferensi
+  // Terapkan class .dark ke <html>
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark)
-    localStorage.setItem('theme', dark ? 'dark' : 'light')
-  }, [dark])
+    document.documentElement.classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  }, [])
 
   // Smooth-scroll ke section dengan offset = tinggi navbar aktual.
-  // Diukur dinamis setiap klik supaya tetap akurat meski tinggi navbar
-  // berubah (mis. responsif / ganti bahasa), dan tidak bergantung pada
-  // offset CSS statis yang bisa berbeda dari tinggi navbar sebenarnya.
+  // Posisi target dihitung dari offsetTop LAYOUT (bukan getBoundingClientRect),
+  // jadi tidak terpengaruh transform/animasi yang sedang berjalan — klik
+  // beruntun (mis. Sertifikat → Projek) tetap mendarat di posisi yang benar.
   const jump = useCallback((id) => {
     lockActive(id)
     const el = document.getElementById(id)
@@ -49,8 +45,13 @@ export default function App() {
     }
 
     const navH = document.getElementById('site-navbar')?.offsetHeight ?? 0
-    const top =
-      el.getBoundingClientRect().top + window.scrollY - navH
+    // offsetTop relatif thd offsetParent — normalnya sudah posisi halaman
+    // (section diberi .anchor-safe). Validasi: hasil mustahil (≤ 0 / melebihi
+    // dokumen) → fallback ke getBoundingClientRect.
+    let top = el.offsetTop - navH
+    if (top <= 0 || el.offsetTop > document.documentElement.scrollHeight) {
+      top = el.getBoundingClientRect().top + window.scrollY - navH
+    }
 
     window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
   }, [lockActive])
@@ -69,26 +70,28 @@ export default function App() {
         active={active}
         onJump={jump}
         dark={dark}
-        onToggleDark={() => setDark((v) => !v)}
+        onToggleDark={() => {}}
       />
 
       <ProgressRail progress={progress} active={active} onJump={jump} />
 
-      <main>
+      <main className="relative z-10">
         <Home onJump={jump} />
-        <Reveal>
+        {/* className anchor-safe: pastikan tiap section jadi acuan scroll yang
+            stabil (offsetTop akurat) walau pembungkus Reveal-nya dianimasikan. */}
+        <Reveal className="anchor-safe">
           <About />
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal delay={100} className="anchor-safe">
           <Keahlian />
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal delay={100} className="anchor-safe">
           <Sertifikat />
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal delay={100} className="anchor-safe">
           <Projek />
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal delay={100} className="anchor-safe">
           <Kontak />
         </Reveal>
       </main>
@@ -97,3 +100,4 @@ export default function App() {
     </>
   )
 }
+

@@ -1,7 +1,3 @@
-// src/components/ui/Card.jsx
-// Card bertema "sticky note dari kelas": radius lembut + shadow amber transparan.
-// hover-lift opsional untuk kartu projek.
-
 export default function Card({
   as: Tag = 'div',
   hover = false,
@@ -11,16 +7,15 @@ export default function Card({
 }) {
   return (
     <Tag
-      className={[
-        'rounded-2xl border border-ink/10 bg-surface-alt p-6 shadow-card transition-all duration-300',
+      className={`rounded-3xl glass-panel border border-white/10 p-6 md:p-8 transition-all duration-300 preserve-3d ${
         hover
-          ? 'group hover:-translate-y-1 hover:shadow-card-hover hover:border-amber/40'
-          : '',
-        className,
-      ].join(' ')}
+          ? 'group hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(79,70,229,0.3)] hover:border-[#4f46e5]/40 hover:rotate-x-2 hover:-rotate-y-2'
+          : ''
+      } ${className}`}
       {...props}
     >
       {children}
     </Tag>
   )
 }
+

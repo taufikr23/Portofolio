@@ -1,12 +1,10 @@
-// src/components/ui/Reveal.jsx
-// Wrapper animasi scroll-reveal: fade-in + slide-up saat masuk viewport.
 import { useEffect, useRef, useState } from 'react'
 
 export default function Reveal({
   children,
   className = '',
   delay = 0,
-  once = false,
+  once = true,
   threshold = 0.15,
 }) {
   const ref = useRef(null)
@@ -16,7 +14,6 @@ export default function Reveal({
     const el = ref.current
     if (!el) return
 
-    // Hormati preferensi user untuk reduced motion
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
       setVisible(true)
       return
@@ -41,11 +38,7 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      className={`transition-all duration-[1800ms] ease-out ${
-        visible
-          ? 'translate-y-0 opacity-100'
-          : 'translate-y-16 opacity-0'
-      } ${className}`}
+      className={`transition-[opacity,filter] duration-[1200ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] ${visible ? 'opacity-100 blur-none' : 'opacity-0 blur-sm'} ${className}`}
     >
       {children}
     </div>

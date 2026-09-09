@@ -1,57 +1,120 @@
-// src/sections/Kontak.jsx — "Modul 04: Mari Terhubung"
-import SectionLabel from '../components/SectionLabel'
-import Card from '../components/ui/Card'
+import { motion } from 'framer-motion'
 import { profile } from '../data/profile'
 import { useLang } from '../context/LanguageContext'
+import profilePhoto from '../assets/profile/saya.jpeg'
 
 export default function Kontak() {
   const { t, tr } = useLang()
 
   return (
-    <section id="kontak" className="px-5 py-20 bg-surface">
-      <div className="mx-auto max-w-6xl">
-        <SectionLabel
-          module="05"
-          title={tr({ id: 'Mari Terhubung', en: "Let's Connect" })}
-          kicker={t('kicker.kontak')}
+    <section id="kontak" className="relative px-5 py-32 overflow-hidden bg-[#070B17]">
+      {/* Futuristic Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-[#4f46e5]/10 via-[#8b5cf6]/5 to-transparent rounded-full blur-[120px]" />
+        
+        {/* Subtle Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.05]" 
+          style={{ 
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}
         />
+      </div>
 
-        <div className="mb-8 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-amber/20 bg-amber-alpha px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber" />
-            {tr(profile.role)}
+      <div className="mx-auto max-w-5xl relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center flex flex-col items-center"
+        >
+          <span className="font-mono text-sm tracking-[0.2em] text-[#4f46e5] uppercase mb-4">
+            {tr({ id: '05. Kontak', en: '05. Contact' })}
           </span>
-        </div>
+          <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">
+            {tr({ id: 'Mari Bangun Sesuatu Bersama', en: "Let's Build Something Together" })}
+          </h2>
+          <p className="max-w-2xl font-body text-slate-400 text-lg">
+            {t('kicker.kontak')}
+          </p>
+        </motion.div>
 
-        <div className="mx-auto max-w-xl space-y-4">
-          <ContactRow
-            href={`mailto:${profile.email}`}
-            label={t('contact.label.email')}
-            value={profile.email}
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
+          {/* Left Column - Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col gap-4"
           >
-            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
-            <path d="m22 6-10 7L2 6" />
-          </ContactRow>
+            <ContactCard
+              href={`mailto:${profile.email}`}
+              label={t('contact.label.email')}
+              value={profile.email}
+              delay={0.1}
+            >
+              <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
+              <path d="m22 6-10 7L2 6" />
+            </ContactCard>
 
-          <ContactRow
-            href={`https://wa.me/${profile.whatsapp}`}
-            label={t('contact.label.whatsapp')}
-            value={profile.phone}
-            external
+            <ContactCard
+              href={`https://wa.me/${profile.whatsapp}`}
+              label={t('contact.label.whatsapp')}
+              value={profile.phone}
+              delay={0.2}
+              external
+            >
+              <path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z" />
+            </ContactCard>
+
+            <ContactCard 
+              label={t('contact.label.location')} 
+              value={tr(profile.location)} 
+              delay={0.3}
+              static
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </ContactCard>
+          </motion.div>
+
+          {/* Right Column - Action Panel */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="glass-panel p-8 md:p-10 rounded-3xl border border-white/10 flex flex-col items-center justify-center text-center preserve-3d"
           >
-            <path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z" />
-          </ContactRow>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#4f46e5]/20 to-[#8b5cf6]/20 border border-white/10 flex items-center justify-center mb-8 relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] rounded-full opacity-20 blur-xl" />
+              <div className="w-16 h-16 rounded-full bg-[#111827] flex items-center justify-center relative z-10 overflow-hidden">
+                <img src={profilePhoto} alt="Taufik" className="w-full h-full object-cover opacity-80" />
+              </div>
+            </div>
 
-          <ContactRow label={t('contact.label.location')} value={tr(profile.location)} static>
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </ContactRow>
-
-          <Card className="bg-[color:var(--bg)]">
-            <p className="font-mono text-[11px] uppercase tracking-wider text-sage">
-              {t('contact.label.social')}
+            <h3 className="font-display text-2xl font-bold text-white mb-2">Available for Work</h3>
+            <p className="font-body text-slate-400 mb-8 max-w-sm">
+              Currently open for new opportunities, freelance projects, or full-time roles.
             </p>
-            <div className="mt-3 flex flex-wrap gap-3">
+
+            <a 
+              href={`mailto:${profile.email}`}
+              className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] w-full max-w-xs py-4 font-display font-bold text-white shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] flex items-center justify-center gap-3 group"
+            >
+              <span className="relative z-10">Hubungi Saya</span>
+              <svg className="relative z-10 transform transition-transform group-hover:translate-x-1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+
+            <div className="w-full h-[1px] bg-white/10 my-8" />
+
+            <div className="flex gap-4">
               <SocialButton href={profile.socials.linkedin} label="LinkedIn">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM6 9H2v12h4zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
               </SocialButton>
@@ -64,49 +127,59 @@ export default function Kontak() {
                 <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
               </SocialButton>
             </div>
-          </Card>
+          </motion.div>
         </div>
-
-        <p className="mt-12 text-center font-display text-lg font-medium text-sage">
-          {t('contact.quote')}
-        </p>
       </div>
     </section>
   )
 }
 
-function ContactRow({ href, label, value, children, external, static: isStatic }) {
+function ContactCard({ href, label, value, children, external, static: isStatic, delay = 0 }) {
   const inner = (
     <>
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-alpha text-amber">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#4f46e5]/10 border border-[#4f46e5]/20 text-[#4f46e5] group-hover:scale-110 group-hover:bg-[#4f46e5] group-hover:text-white transition-all duration-300">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           {children}
         </svg>
-      </span>
-      <span>
-        <span className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-sage">
+      </div>
+      <div className="flex flex-col justify-center">
+        <span className="block font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
           {label}
         </span>
-        <span className="font-body text-sm font-semibold text-surface-fg">
+        <span className="font-display text-lg font-bold text-white group-hover:text-[#8b5cf6] transition-colors">
           {value}
         </span>
-      </span>
+      </div>
     </>
   )
 
-  const cls =
-    'flex items-center gap-4 rounded-2xl border border-ink/10 bg-[color:var(--bg)] p-4 shadow-card transition-all'
+  const cls = 'group flex items-center gap-5 rounded-2xl glass-panel border border-white/5 p-4 md:p-6 transition-all duration-300'
 
-  if (isStatic) return <div className={cls}>{inner}</div>
+  if (isStatic) return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className={cls}
+    >
+      {inner}
+    </motion.div>
+  )
+  
   return (
-    <a
+    <motion.a
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
-      className={`${cls} hover:-translate-y-1 hover:border-amber/40 hover:shadow-card-hover`}
+      className={`${cls} hover:-translate-y-1 hover:border-[#4f46e5]/40 hover:shadow-[0_10px_30px_rgba(79,70,229,0.2)]`}
     >
       {inner}
-    </a>
+    </motion.a>
   )
 }
 
@@ -117,9 +190,9 @@ function SocialButton({ href, label, children }) {
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-xl border border-ink/15 text-surface-fg transition-all hover:-translate-y-1 hover:border-amber hover:text-amber hover:bg-amber-alpha hover:shadow-card"
+      className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#8b5cf6] hover:bg-[#8b5cf6]/10 hover:text-[#8b5cf6] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"
     >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {children}
       </svg>
     </a>

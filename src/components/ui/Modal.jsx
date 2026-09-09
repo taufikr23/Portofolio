@@ -1,11 +1,14 @@
 // src/components/ui/Modal.jsx
-// Lightbox sederhana untuk zoom foto sertifikat.
+// Lightbox untuk zoom foto sertifikat & detail projek.
 // State buka/tutup dikelola parent (useState) — komponen ini render bila `open`.
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
-export default function Modal({ open, onClose, children, label = 'Detail' }) {
+export default function Modal({ open, onClose, children, label = 'Detail', wide = false, fit = false }) {
   const closeRef = useRef(null)
+  const contentRef = useRef(null)
+  const [scale, setScale] = useState(1)
 
   useEffect(() => {
     if (!open) return
@@ -24,9 +27,37 @@ export default function Modal({ open, onClose, children, label = 'Detail' }) {
     }
   }, [open, onClose])
 
+  // Mode `fit`: ukur konten & perkecil (transform scale) sampai seluruh popup
+  // muat di viewport — tidak ada scrollbar, semua info tetap terlihat.
+  useLayoutEffect(() => {
+    if (!open) return
+    const measure = () => {
+      const el = contentRef.current
+      if (!el) return
+      // ukur tinggi alami konten pada lebar sekarang (reset scale dulu)
+      el.style.transform = 'none'
+      const needed = el.scrollHeight
+      // ruang vertikal viewport dikurangi padding wrapper modal
+      const pad = window.innerWidth < 640 ? 32 : 64
+      const avail = window.innerHeight - pad
+      setScale(needed > avail ? Math.max(0.4, avail / needed) : 1)
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    // ukur ulang setelah gambar selesai dimuat (tinggi konten berubah)
+    const t = setTimeout(measure, 300)
+    return () => {
+      window.removeEventListener('resize', measure)
+      clearTimeout(t)
+    }
+  }, [open, children])
+
   if (!open) return null
 
-  return (
+  // Portal ke body: kalau modal dirender di dalam subtree yang punya transform/filter
+  // (mis. kartu carousel yang dianimasikan Framer Motion), `position: fixed` jadi relatif
+  // terhadap ancestor itu — modal bisa kepotong & konten bawah tak terjangkau.
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -35,19 +66,33 @@ export default function Modal({ open, onClose, children, label = 'Detail' }) {
       onClick={onClose}
     >
       {/* backdrop */}
-      <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm animate-[fadeIn_0.2s_ease]" />
+      <div className="absolute inset-0 bg-[#070B17]/80 backdrop-blur-md animate-[fadeIn_0.2s_ease]" />
 
       {/* konten — stopPropagation supaya klik di dalam tidak menutup */}
       <div
-        className="relative z-10 max-h-full w-full max-w-4xl overflow-auto rounded-2xl bg-surface-alt shadow-card-hover"
+        className={`relative z-10 max-h-full w-full ${wide ? 'max-w-5xl' : 'max-w-3xl'} ${
+          fit ? 'overflow-visible' : 'overflow-auto'
+        } rounded-2xl border border-white/10 bg-[#0B1020] shadow-[0_0_60px_rgba(79,70,229,0.25)]`}
         onClick={(e) => e.stopPropagation()}
+        ref={fit ? contentRef : undefined}
+        style={
+          fit
+            ? {
+                transform: `scale(${scale})`,
+                transformOrigin: 'center center',
+                transition: 'transform 0.2s ease-out',
+                maxHeight: 'none',
+              }
+            : undefined
+        }
       >
-        <button
-          ref={closeRef}
-          onClick={onClose}
-          aria-label="Tutup"
-          className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-cream/90 text-ink shadow-card transition hover:bg-clay hover:text-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber"
-        >
+        <div className="sticky top-0 z-20 flex justify-end p-3">
+          <button
+            ref={closeRef}
+            onClick={onClose}
+            aria-label="Tutup"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white shadow-card backdrop-blur-md transition hover:bg-[#4f46e5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6]"
+          >
           <svg
             width="18"
             height="18"
@@ -59,11 +104,13 @@ export default function Modal({ open, onClose, children, label = 'Detail' }) {
           >
             <path d="M18 6 6 18M6 6l12 12" />
           </svg>
-        </button>
+          </button>
+        </div>
         {children}
       </div>
 
       <style>{`@keyframes fadeIn{from{opacity:0}to{opacity:1}}`}</style>
-    </div>
+    </div>,
+    document.body
   )
 }
