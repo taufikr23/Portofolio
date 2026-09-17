@@ -12,10 +12,10 @@ export default function ProgressRail({ progress, active, onJump }) {
     >
       <div className="relative flex flex-col items-center">
         {/* Futuristic Rail Container */}
-        <div className="relative h-64 w-1 rounded-full bg-white/10 overflow-hidden glass-panel">
+        <div className="relative h-64 w-1 rounded-full bg-[#332C26] overflow-hidden">
           {/* Active Fill */}
           <motion.div
-            className="absolute left-0 top-0 w-full rounded-full bg-gradient-to-b from-[#4f46e5] to-[#8b5cf6] shadow-glow"
+            className="absolute left-0 top-0 w-full rounded-full bg-[#C9A15A] shadow-glow"
             style={{ height: `${progress * 100}%` }}
             layout
           />
@@ -38,19 +38,19 @@ export default function ProgressRail({ progress, active, onJump }) {
                 <span
                   className={`block rounded-full transition-all duration-300 ${
                     isActive
-                      ? 'h-3 w-3 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]'
+                      ? 'h-3 w-3 bg-[#C9A15A] shadow-[0_0_15px_rgba(201,161,90,0.8)]'
                       : isPast
-                        ? 'h-2 w-2 bg-[#8b5cf6]'
-                        : 'h-2 w-2 bg-slate-600 group-hover:bg-slate-400'
+                        ? 'h-2 w-2 bg-[#C9A15A]/60'
+                        : 'h-2 w-2 bg-[#332C26] group-hover:bg-[#A69B8D]'
                   }`}
                 />
                 
                 {/* Tooltip Label */}
                 <span
-                  className={`absolute right-10 top-1/2 -translate-y-1/2 whitespace-nowrap px-3 py-1.5 rounded-lg glass-panel font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-300 pointer-events-none ${
+                  className={`absolute right-10 top-1/2 -translate-y-1/2 whitespace-nowrap px-3 py-1.5 rounded-lg bg-[#211C18] font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-300 pointer-events-none ${
                     isActive
-                      ? 'opacity-100 text-white border border-[#4f46e5]/50 translate-x-0'
-                      : 'opacity-0 text-slate-400 group-hover:opacity-100 translate-x-2'
+                      ? 'opacity-100 text-[#EDE6DC] border border-[#C9A15A]/50 translate-x-0'
+                      : 'opacity-0 text-[#A69B8D] group-hover:opacity-100 translate-x-2'
                   }`}
                 >
                   {tr(s.nav)}

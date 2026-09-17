@@ -27,12 +27,10 @@ export default function Keahlian() {
   }
 
   return (
-    <section id="keahlian" className="relative px-5 py-32 overflow-hidden bg-[#070B17]">
+    <section id="keahlian" className="relative px-5 py-32 overflow-hidden bg-[#161311]">
       {/* 3D Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#4f46e5]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#8b5cf6]/10 rounded-full blur-[120px]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C9A15A]/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="mx-auto max-w-6xl relative z-10">
@@ -43,13 +41,13 @@ export default function Keahlian() {
           transition={{ duration: 0.6 }}
           className="mb-20 flex flex-col items-center text-center"
         >
-          <span className="font-mono text-sm tracking-[0.2em] text-[#8b5cf6] uppercase mb-4">
+          <span className="font-mono text-sm tracking-[0.2em] text-[#C9A15A] uppercase mb-4">
             {tr({ id: '02. Keahlian & Teknologi', en: '02. Skills & Technologies' })}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-[#EDE6DC] mb-6">
             Tech Ecosystem
           </h2>
-          <p className="max-w-2xl font-body text-slate-400 text-lg">
+          <p className="max-w-2xl font-body text-[#A69B8D] text-lg">
             {tr({
               id: 'Teknologi dan alat yang saya gunakan untuk membangun aplikasi modern, efisien, dan berskala besar.',
               en: 'Technologies and tools I use to build modern, efficient, and scalable applications.'
@@ -67,10 +65,10 @@ export default function Keahlian() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <div className="flex items-center gap-4 mb-8">
-                <h3 className="font-display text-2xl font-bold text-white">
+                <h3 className="font-display text-2xl font-bold text-[#EDE6DC]">
                   {tr(g.category)}
                 </h3>
-                <div className="flex-1 h-[1px] bg-gradient-to-r from-white/10 to-transparent" />
+                <div className="flex-1 h-[1px] bg-[#332C26]" />
               </div>
               
               <motion.div 
@@ -80,7 +78,6 @@ export default function Keahlian() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
               >
-                {/* Remove duplicates, just render items once in a 3D grid */}
                 {g.items.map((it, i) => {
                   const Icon = it.icon
                   if (!Icon) return null
@@ -97,7 +94,7 @@ export default function Keahlian() {
                         rotateY: -5,
                         boxShadow: `0 20px 40px -10px ${it.color}40, 0 0 20px ${it.color}20` 
                       }}
-                      className="group flex flex-col items-center justify-center gap-4 rounded-2xl glass-panel p-6 preserve-3d transition-all duration-300 border border-white/5 cursor-default relative overflow-hidden"
+                      className="group flex flex-col items-center justify-center gap-4 rounded-2xl bg-[#211C18] p-6 preserve-3d transition-all duration-300 border border-[#332C26] hover:border-[#332C26] cursor-default relative overflow-hidden"
                       style={{ 
                         '--brand-color': it.color, 
                         '--brand-dark-color': it.darkColor || it.color 
@@ -114,7 +111,7 @@ export default function Keahlian() {
                       >
                          <Icon size={48} />
                       </div>
-                      <span className="font-body text-sm font-bold text-slate-300 group-hover:text-white transition-colors text-center transform translate-z-[10px]">
+                      <span className="font-body text-sm font-bold text-[#EDE6DC] group-hover:text-white transition-colors text-center transform translate-z-[10px]">
                         {it.name}
                       </span>
                     </motion.div>

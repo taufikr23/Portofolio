@@ -28,7 +28,7 @@ export const ui = {
     'about.teachingSchedule': '/ jadwal mengajar',
     'about.skills': 'Keahlian',
     'about.gpa': 'IPK',
-    'about.downloadCv': 'Download CV (PDF)',
+    'about.downloadCv': 'Unduh CV',
 
     // Sertifikat
     'cert.zoom': 'Perbesar',
@@ -101,7 +101,7 @@ export const ui = {
     'about.teachingSchedule': '/ teaching schedule',
     'about.skills': 'Skills',
     'about.gpa': 'GPA',
-    'about.downloadCv': 'Download CV (PDF)',
+    'about.downloadCv': 'Download CV',
 
     // Sertifikat
     'cert.zoom': 'Zoom in',

@@ -87,14 +87,14 @@ export default function WelcomeDoors() {
     >
       {/* Konten di balik pintu — judul yang "menunggu" dibuka */}
       <motion.div
-        className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0B1020]"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#161311]"
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1, transition: { duration: 0.5 } }}
       >
-        <span className="font-mono text-xs tracking-[0.35em] text-[#8b5cf6] uppercase">
+        <span className="font-mono text-xs tracking-[0.35em] text-[#C9A15A] uppercase">
           Selamat Datang
         </span>
-        <span className="font-display text-4xl sm:text-6xl font-bold text-white text-center px-6">
+        <span className="font-display text-4xl sm:text-6xl font-bold text-[#EDE6DC] text-center px-6">
           Portofolio
         </span>
       </motion.div>
@@ -105,13 +105,13 @@ export default function WelcomeDoors() {
           key={side}
           className={`absolute inset-y-0 w-1/2 z-10 flex items-center ${
             side === 'left' ? 'left-0 origin-left justify-end border-r' : 'right-0 origin-right justify-start border-l'
-          } border-[#4f46e5]/30 bg-gradient-to-b from-[#141a33] via-[#0d1226] to-[#141a33] shadow-[inset_0_0_80px_rgba(0,0,0,0.55)]`}
+          } border-[#332C26] bg-[#211C18] shadow-[inset_0_0_80px_rgba(0,0,0,0.65)]`}
           style={{ backfaceVisibility: 'hidden' }}
           {...panel(side)}
         >
           {/* Ornamen gagang pintu */}
           <div
-            className={`h-3 w-3 rounded-full bg-[#8b5cf6] shadow-[0_0_14px_rgba(139,92,246,0.9)] ${
+            className={`h-3 w-3 rounded-full bg-[#C9A15A] shadow-[0_0_14px_rgba(201,161,90,0.8)] ${
               side === 'left' ? 'mr-6' : 'ml-6'
             }`}
           />
@@ -128,13 +128,13 @@ export default function WelcomeDoors() {
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
           >
             <motion.span
-              className="inline-block rounded-full border border-[#a78bfa] bg-[#0B1020]/85 px-7 py-3 font-mono text-sm font-bold tracking-[0.25em] text-white uppercase backdrop-blur-md shadow-[0_0_24px_rgba(139,92,246,0.65)]"
+              className="inline-block rounded-full border border-[#332C26] bg-[#211C18]/90 px-7 py-3 font-mono text-sm font-bold tracking-[0.25em] text-[#EDE6DC] uppercase backdrop-blur-md shadow-[0_0_24px_rgba(201,161,90,0.3)]"
               animate={{
                 opacity: [0.9, 1, 0.9],
                 boxShadow: [
-                  '0 0 16px rgba(139,92,246,0.45)',
-                  '0 0 34px rgba(139,92,246,0.85)',
-                  '0 0 16px rgba(139,92,246,0.45)',
+                  '0 0 16px rgba(201,161,90,0.2)',
+                  '0 0 34px rgba(201,161,90,0.5)',
+                  '0 0 16px rgba(201,161,90,0.2)',
                 ],
               }}
               transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}

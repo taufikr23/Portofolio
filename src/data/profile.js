@@ -1,6 +1,8 @@
 // src/data/profile.js
 // Data profil terpusat — dipakai di Home, About, Kontak, Footer.
-import cvFile from '../assets/cv/CV TAUFIK RAHMAN TANJUNG.pdf'
+import cvFullstack from '../assets/cv/Taufik_Rahman_Tanjung_FullStack_Developer.pdf'
+import cvFrontend from '../assets/cv/Taufik_Rahman_Tanjung_FrontEnd_Developer.pdf'
+import cvBackend from '../assets/cv/Taufik_Rahman_Tanjung_Backend_Developer.pdf'
 
 export const profile = {
   name: 'Taufik Rahman Tanjung',
@@ -20,7 +22,24 @@ export const profile = {
   email: 'taufiksibolga1@gmail.com',
   phone: '+62 822-8766-5564',
   whatsapp: '6282287665564',
-  cvUrl: cvFile,
+  cvUrl: cvFullstack,
+  cvList: [
+    {
+      title: { id: 'CV Fullstack Developer', en: 'CV Fullstack Developer' },
+      url: cvFullstack,
+      role: 'Fullstack'
+    },
+    {
+      title: { id: 'CV Frontend Developer', en: 'CV Frontend Developer' },
+      url: cvFrontend,
+      role: 'Frontend'
+    },
+    {
+      title: { id: 'CV Backend Developer', en: 'CV Backend Developer' },
+      url: cvBackend,
+      role: 'Backend'
+    },
+  ],
   socials: {
     linkedin: 'https://www.linkedin.com/in/taufik-rahman-tanjung-b7aa163a2/',
     github: 'https://github.com/taufikr23',

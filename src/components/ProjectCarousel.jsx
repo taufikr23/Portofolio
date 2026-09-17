@@ -65,7 +65,7 @@ export default function ProjectCarousel({ items = defaultItems }) {
                 onClick={() => (isCenter ? setDetail(p) : setActive(index))}
                 className={`absolute w-full max-w-sm lg:max-w-md h-[34rem] rounded-3xl preserve-3d glass-panel border ${
                   isCenter 
-                    ? 'cursor-pointer border-[#4f46e5]/50 shadow-[0_0_40px_rgba(79,70,229,0.3)]' 
+                    ? 'cursor-pointer border-[#C9A15A]/50 shadow-[0_0_40px_rgba(201,161,90,0.3)]' 
                     : 'cursor-pointer border-white/5'
                 }`}
               >
@@ -86,7 +86,7 @@ export default function ProjectCarousel({ items = defaultItems }) {
               onClick={() => setActive(index)}
               aria-label={`${t('project.goTo')} ${p.title}`}
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === active ? 'w-10 bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] shadow-[0_0_10px_rgba(79,70,229,0.5)]' : 'w-2 bg-slate-700 hover:bg-slate-500'
+                index === active ? 'w-10 bg-[#C9A15A] shadow-[0_0_10px_rgba(201,161,90,0.5)]' : 'w-2 bg-[#332C26] hover:bg-[#A69B8D]'
               }`}
             />
           ))}
@@ -109,9 +109,9 @@ function ProjectDetail({ project, interactive }) {
   return (
     <DoorLightbox>
       {/* Gambar di kiri — utuh, deskripsi di kanan — semua muat tanpa scroll */}
-      <div className="bg-[#0B1020]">
+      <div className="bg-[#161311]">
       <div className="md:grid md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <div className="flex items-center justify-center bg-[#111827]">
+        <div className="flex items-center justify-center bg-[#211C18]">
           {image ? (
             <img src={image} alt={`Screenshot ${title}`} className="w-full h-auto max-h-[48vh] object-contain" />
           ) : (
@@ -120,26 +120,26 @@ function ProjectDetail({ project, interactive }) {
         </div>
 
         <div className="p-5 sm:p-6">
-          {tagline && <span className="font-mono text-[10px] font-bold text-[#8b5cf6] uppercase tracking-wider">{tr(tagline)}</span>}
-          <h3 className="font-display text-xl sm:text-2xl font-bold text-white mt-0.5 mb-2">{title}</h3>
-          <p className="font-body text-[13px] leading-snug text-slate-400 line-clamp-6">
+          {tagline && <span className="font-mono text-[10px] font-bold text-[#C9A15A] uppercase tracking-wider">{tr(tagline)}</span>}
+          <h3 className="font-display text-xl sm:text-2xl font-bold text-[#EDE6DC] mt-0.5 mb-2">{title}</h3>
+          <p className="font-body text-[13px] leading-snug text-[#A69B8D] line-clamp-6">
             {tr(description)}
           </p>
         </div>
       </div>
 
       {/* Fitur + stack + link — rapat di bawah */}
-      <div className="px-5 sm:px-6 pt-4 pb-5 border-t border-white/10">
+      <div className="px-5 sm:px-6 pt-4 pb-5 border-t border-[#332C26]">
         {features?.length > 0 && (
           <div className="mb-4">
-            <h4 className="font-display text-sm font-bold text-white mb-2.5 flex items-center gap-1.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h4 className="font-display text-sm font-bold text-[#EDE6DC] mb-2.5 flex items-center gap-1.5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A15A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               Key Features
             </h4>
             <ul className="grid gap-2 sm:grid-cols-3">
               {features.map((f, i) => (
-                <li key={i} className="flex items-start gap-2 font-body text-xs font-medium text-slate-400 glass-panel px-3 py-2 rounded-lg border border-white/5">
-                  <svg className="mt-0.5 shrink-0 text-[#4f46e5]" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <li key={i} className="flex items-start gap-2 font-body text-xs font-medium text-[#A69B8D] bg-[#211C18] px-3 py-2 rounded-lg border border-[#332C26]">
+                  <svg className="mt-0.5 shrink-0 text-[#C9A15A]" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                   {tr(f)}
@@ -150,13 +150,13 @@ function ProjectDetail({ project, interactive }) {
         )}
 
         <div className="mb-4">
-          <h4 className="font-display text-sm font-bold text-white mb-2.5 flex items-center gap-1.5">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <h4 className="font-display text-sm font-bold text-[#EDE6DC] mb-2.5 flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A15A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             Tech Stack
           </h4>
           <div className="flex flex-wrap gap-1.5">
             {stack.map((s) => (
-              <span key={s} className="px-2 py-1 rounded-md bg-[#4f46e5]/10 border border-[#4f46e5]/20 text-xs font-medium text-[#c7d2fe]">
+              <span key={s} className="px-2 py-1 rounded-md bg-[#C9A15A]/10 border border-[#C9A15A]/20 text-xs font-medium text-[#C9A15A]">
                 {s}
               </span>
             ))}
@@ -189,7 +189,7 @@ function ProjectCard({ project, interactive }) {
 
   return (
     <div className="group flex h-full flex-col overflow-hidden relative">
-      <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-[#111827]">
+      <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-[#211C18]">
         {image ? (
           <img
             src={image}
@@ -200,15 +200,15 @@ function ProjectCard({ project, interactive }) {
         ) : (
           <ProjectPlaceholder title={title} />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#211C18] via-transparent to-transparent opacity-90" />
         
         {interactive && (
-          <div className="absolute inset-0 bg-[#070B17]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+          <div className="absolute inset-0 bg-[#161311]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
             <motion.div 
               initial={{ scale: 0 }} 
               whileHover={{ scale: 1.1 }}
               animate={{ scale: 1 }} 
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] flex items-center gap-2 text-white shadow-glow font-bold text-sm"
+              className="px-6 py-3 rounded-full bg-[#C9A15A] text-[#161311] flex items-center gap-2 shadow-glow font-bold text-sm"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                 <circle cx="11" cy="11" r="7" />
@@ -220,25 +220,25 @@ function ProjectCard({ project, interactive }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-6 lg:p-8 relative z-10 bg-gradient-to-b from-[#111827]/80 to-[#111827]">
+      <div className="flex flex-1 flex-col p-6 lg:p-8 relative z-10 bg-[#211C18]">
         <div className="flex flex-col gap-1 mb-3">
-          {tagline && <span className="font-mono text-[10px] font-bold text-[#8b5cf6] uppercase tracking-wider">{tr(tagline)}</span>}
-          <h3 className="font-display text-2xl font-bold text-white">{title}</h3>
+          {tagline && <span className="font-mono text-[10px] font-bold text-[#C9A15A] uppercase tracking-wider">{tr(tagline)}</span>}
+          <h3 className="font-display text-2xl font-bold text-[#EDE6DC]">{title}</h3>
         </div>
 
-        <p className="font-body text-sm leading-relaxed text-slate-400 line-clamp-3 mb-6">
+        <p className="font-body text-sm leading-relaxed text-[#A69B8D] line-clamp-3 mb-6">
           {tr(description)}
         </p>
 
         <div className="mt-auto">
           <div className="flex flex-wrap gap-2 mb-6">
             {stack.slice(0, 3).map((s) => (
-              <span key={s} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-slate-300">
+              <span key={s} className="px-2.5 py-1 rounded-md bg-[#2A2420] border border-[#332C26] text-xs font-medium text-[#EDE6DC]">
                 {s}
               </span>
             ))}
             {stack.length > 3 && (
-              <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-slate-500">
+              <span className="px-2.5 py-1 rounded-md bg-[#2A2420] border border-[#332C26] text-xs font-medium text-[#A69B8D]">
                 +{stack.length - 3}
               </span>
             )}
@@ -272,9 +272,9 @@ function CardLink({ href, primary, interactive, disabledLabel, children }) {
 
   if (!href) {
     return (
-      <span className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-2 font-body text-sm font-semibold text-slate-500">
+      <span className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-[#211C18] border border-[#332C26] px-4 py-2 font-body text-sm font-semibold text-[#A69B8D]">
         {children}
-        <span className="font-mono text-[10px]">A {disabledLabel}</span>
+        <span className="font-mono text-[10px]">{disabledLabel}</span>
       </span>
     )
   }
@@ -287,8 +287,8 @@ function CardLink({ href, primary, interactive, disabledLabel, children }) {
       tabIndex={tabIndex}
       className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-body text-sm font-bold transition-all hover:scale-105 ${
         primary
-          ? 'bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] text-white shadow-glow'
-          : 'glass-panel text-white hover:bg-white/10'
+          ? 'bg-[#C9A15A] text-[#161311] hover:bg-[#D9B370] shadow-glow'
+          : 'bg-[#211C18] border border-[#332C26] text-[#EDE6DC] hover:bg-[#2A2420]'
       }`}
     >
       {children}
@@ -302,7 +302,7 @@ function ArrowButton({ direction, onClick, label }) {
     <button
       onClick={onClick}
       aria-label={label}
-      className="group flex h-14 w-14 items-center justify-center rounded-full glass-panel border border-white/10 text-white transition-all duration-300 hover:scale-110 hover:border-[#4f46e5] hover:bg-white/5 hover:text-[#4f46e5] hover:shadow-[0_0_20px_rgba(79,70,229,0.3)] z-50 focus:outline-none"
+      className="group flex h-14 w-14 items-center justify-center rounded-full bg-[#211C18] border border-[#332C26] text-[#EDE6DC] transition-all duration-300 hover:scale-110 hover:border-[#C9A15A] hover:text-[#C9A15A] z-50 focus:outline-none"
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {isLeft ? <path d="m15 18-6-6 6-6" /> : <path d="m9 18 6-6-6-6" />}
@@ -314,13 +314,13 @@ function ArrowButton({ direction, onClick, label }) {
 function ProjectPlaceholder({ title }) {
   const { t } = useLang()
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#111827] to-[#4f46e5]/20">
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#4f46e5] opacity-50" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-[#211C18]">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#C9A15A] opacity-50" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
         <path d="M8 21h8M12 17v4" />
       </svg>
       <div className="text-center opacity-50">
-        <span className="block font-mono text-[10px] text-slate-400 uppercase tracking-widest">{t('project.screenshotPlaceholder') || `Screenshot`}</span>
+        <span className="block font-mono text-[10px] text-[#A69B8D] uppercase tracking-widest">{t('project.screenshotPlaceholder') || `Screenshot`}</span>
       </div>
     </div>
   )

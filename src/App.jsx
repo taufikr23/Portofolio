@@ -28,9 +28,12 @@ export default function App() {
   }, [])
 
   // Smooth-scroll ke section dengan offset = tinggi navbar aktual.
-  // Posisi target dihitung dari offsetTop LAYOUT (bukan getBoundingClientRect),
-  // jadi tidak terpengaruh transform/animasi yang sedang berjalan — klik
-  // beruntun (mis. Sertifikat → Projek) tetap mendarat di posisi yang benar.
+  // Posisi target dihitung dari getBoundingClientRect + scrollY — akurat
+  // terhadap posisi dokumen sebenarnya (offsetTop bisa meleset bila
+  // offsetParent elemen bukan body). Setelah scroll berhenti, posisi dicek
+  // ulang dan diluruskan sekali: saat smooth-scroll jarak jauh (umum di HP)
+  // melewati section yang baru animate-in, tinggi layout bisa berubah di
+  // tengah jalan sehingga pendaratan pertama meleset.
   const jump = useCallback((id) => {
     lockActive(id)
     const el = document.getElementById(id)
@@ -38,6 +41,13 @@ export default function App() {
     const reduce = window.matchMedia?.(
       '(prefers-reduced-motion: reduce)',
     ).matches
+    // Offset = tinggi pill navbar SAJA (nav di dalam header), bukan seluruh
+    // header — saat menu mobile terbuka, panel menu ikut menggembungkan
+    // tinggi header dan membuat offset meleset ratusan px.
+    const navEl = document.querySelector('#site-navbar nav')
+    const navH = navEl
+      ? navEl.offsetTop + navEl.offsetHeight
+      : (document.getElementById('site-navbar')?.offsetHeight ?? 0)
 
     // Section pertama (home): scroll ke paling atas viewport.
     if (id === sectionIds[0]) {
@@ -45,16 +55,39 @@ export default function App() {
       return
     }
 
-    const navH = document.getElementById('site-navbar')?.offsetHeight ?? 0
-    // offsetTop relatif thd offsetParent — normalnya sudah posisi halaman
-    // (section diberi .anchor-safe). Validasi: hasil mustahil (≤ 0 / melebihi
-    // dokumen) → fallback ke getBoundingClientRect.
-    let top = el.offsetTop - navH
-    if (top <= 0 || el.offsetTop > document.documentElement.scrollHeight) {
-      top = el.getBoundingClientRect().top + window.scrollY - navH
-    }
+    const target = Math.max(
+      0,
+      el.getBoundingClientRect().top + window.scrollY - navH,
+    )
+    window.scrollTo({ top: target, behavior: reduce ? 'auto' : 'smooth' })
+    if (reduce) return
 
-    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
+    // Koreksi pendaratan: tunggu sampai scroll benar-benar diam, lalu luruskan
+    // selisihnya sekali tanpa animasi. Dibatalkan bila user ikut menggulir.
+    let cancelled = false
+    const cancel = () => { cancelled = true }
+    window.addEventListener('wheel', cancel, { passive: true, once: true })
+    window.addEventListener('touchstart', cancel, { passive: true, once: true })
+    const started = performance.now()
+    let lastY = -1
+    let stillFrames = 0
+    const settle = () => {
+      window.removeEventListener('wheel', cancel)
+      window.removeEventListener('touchstart', cancel)
+      if (cancelled || performance.now() - started > 3000) return
+      const y = window.scrollY
+      stillFrames = Math.abs(y - lastY) < 1 ? stillFrames + 1 : 0
+      lastY = y
+      if (stillFrames < 4) {
+        requestAnimationFrame(settle)
+        return
+      }
+      const err = el.getBoundingClientRect().top - navH
+      // Koreksi selalu instant: behavior 'auto' mengikuti CSS
+      // scroll-behavior: smooth dan bisa gagal jalan di beberapa environment.
+      if (Math.abs(err) > 2) window.scrollBy({ top: err, behavior: 'instant' })
+    }
+    requestAnimationFrame(settle)
   }, [lockActive])
 
   return (

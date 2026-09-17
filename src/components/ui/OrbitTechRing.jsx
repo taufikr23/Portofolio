@@ -80,10 +80,10 @@ export default function OrbitTechRing() {
           >
             <motion.div
               whileHover={{ scale: 1.3 }}
-              className="grid h-[4.5rem] w-[4.5rem] place-items-center rounded-2xl glass-panel border border-white/10 shadow-glow"
+              className="grid h-[4.5rem] w-[4.5rem] place-items-center rounded-2xl bg-[#211C18]/90 border border-[#332C26] shadow-glow"
               title={t.name}
             >
-              <svg viewBox="0 0 24 24" className="h-10 w-10" fill={t.color} role="img" aria-label={t.name}>
+              <svg viewBox="0 0 24 24" className="h-10 w-10 transition-transform hover:scale-110" fill={t.color} role="img" aria-label={t.name}>
                 <path d={t.svg} />
               </svg>
             </motion.div>

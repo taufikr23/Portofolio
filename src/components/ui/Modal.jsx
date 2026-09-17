@@ -66,13 +66,13 @@ export default function Modal({ open, onClose, children, label = 'Detail', wide 
       onClick={onClose}
     >
       {/* backdrop */}
-      <div className="absolute inset-0 bg-[#070B17]/80 backdrop-blur-md animate-[fadeIn_0.2s_ease]" />
+      <div className="absolute inset-0 bg-[#161311]/80 backdrop-blur-md animate-[fadeIn_0.2s_ease]" />
 
       {/* konten — stopPropagation supaya klik di dalam tidak menutup */}
       <div
         className={`relative z-10 max-h-full w-full ${wide ? 'max-w-5xl' : 'max-w-3xl'} ${
           fit ? 'overflow-visible' : 'overflow-auto'
-        } rounded-2xl border border-white/10 bg-[#0B1020] shadow-[0_0_60px_rgba(79,70,229,0.25)]`}
+        } rounded-2xl border border-[#332C26] bg-[#211C18] shadow-[0_0_60px_rgba(201,161,90,0.18)]`}
         onClick={(e) => e.stopPropagation()}
         ref={fit ? contentRef : undefined}
         style={
@@ -91,7 +91,7 @@ export default function Modal({ open, onClose, children, label = 'Detail', wide 
             ref={closeRef}
             onClick={onClose}
             aria-label="Tutup"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white shadow-card backdrop-blur-md transition hover:bg-[#4f46e5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6]"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white shadow-card backdrop-blur-md transition hover:bg-[#C9A15A] hover:text-[#161311] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A15A]"
           >
           <svg
             width="18"

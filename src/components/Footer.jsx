@@ -5,9 +5,9 @@ import { useLang } from '../context/LanguageContext'
 export default function Footer({ onJump }) {
   const { t } = useLang()
   return (
-    <footer className="relative border-t border-white/10 bg-[#0B1020] overflow-hidden">
+    <footer className="relative border-t border-[#332C26] bg-[#161311] overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#4f46e5]/10 rounded-[100%] blur-[80px] pointer-events-none -z-10 opacity-50" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C9A15A]/5 rounded-[100%] blur-[80px] pointer-events-none -z-10 opacity-50" />
 
       <div className="mx-auto max-w-6xl px-5 py-12 relative z-10">
         <div className="flex flex-col items-center justify-between gap-8 sm:flex-row">
@@ -16,16 +16,15 @@ export default function Footer({ onJump }) {
             className="group flex items-center gap-4 focus:outline-none transition-transform hover:scale-105"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] rounded-xl blur opacity-60 group-hover:opacity-100 transition-opacity" />
-              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] font-display text-xl font-bold text-white shadow-glow">
-                T
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#211C18] border border-[#332C26] overflow-hidden shadow-glow">
+                <img src="/favicon.png" alt="Logo" className="h-full w-full object-cover" />
               </span>
             </div>
             <div className="text-left">
-              <span className="block font-display text-xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors">
+              <span className="block font-display text-xl font-bold text-[#EDE6DC] group-hover:text-[#C9A15A] transition-colors">
                 {profile.name}
               </span>
-              <span className="block font-mono text-xs text-slate-400 mt-1">
+              <span className="block font-mono text-xs text-[#A69B8D] mt-1">
                 Fullstack Developer
               </span>
             </div>
@@ -46,7 +45,7 @@ export default function Footer({ onJump }) {
               </SocialLink>
             </div>
             
-            <p className="font-mono text-xs font-medium text-slate-500">
+            <p className="font-mono text-xs font-medium text-[#A69B8D]">
               © {new Date().getFullYear()} {profile.name}. {t('footer.builtWith') || 'All rights reserved.'}
             </p>
           </div>
@@ -63,7 +62,7 @@ function SocialLink({ href, label, children }) {
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-slate-300 transition-all duration-300 hover:-translate-y-1 hover:border-[#8b5cf6] hover:text-white hover:bg-[#8b5cf6]/20 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+      className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#211C18] border border-[#332C26] text-[#A69B8D] transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A15A] hover:text-[#EDE6DC] hover:bg-[#2A2420]"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {children}

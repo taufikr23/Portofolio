@@ -1,31 +1,31 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Futuristic 3D Portfolio Theme */
-  --color-cream: #0B1020; /* Dark Background */
-  --color-ink: #f8fafc; /* Light Text */
+  /* Warm Graphite + Brass Theme */
+  --color-cream: #161311; /* Warm Graphite Background */
+  --color-ink: #EDE6DC; /* Main Text */
   
   /* Accents */
-  --color-amber: #4f46e5; /* Indigo */
-  --color-clay: #8b5cf6; /* Violet */
-  --color-sage: #94a3b8; /* Slate */
+  --color-amber: #C9A15A; /* Brass Accent */
+  --color-clay: #D9B370; /* Hover Brass Accent */
+  --color-sage: #A69B8D; /* Muted Text/Slate */
   
-  --color-paper: #111827; /* Card background */
+  --color-paper: #211C18; /* Surface background */
 
-  /* Dark mode overrides (keeping them same since it's always dark) */
-  --color-cream-dark: #070B17;
-  --color-paper-dark: #111827;
-  --color-ink-dark: #f8fafc;
+  /* Dark mode overrides */
+  --color-cream-dark: #161311;
+  --color-paper-dark: #211C18;
+  --color-ink-dark: #EDE6DC;
 
   /* Typography */
   --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
 
-  /* 3D Shadows & Glassmorphism */
-  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --shadow-card-hover: 0 16px 40px 0 rgba(79, 70, 229, 0.2);
-  --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.4);
+  /* Shadows */
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 16px 40px 0 rgba(201, 161, 90, 0.15);
+  --shadow-glow: 0 0 20px rgba(201, 161, 90, 0.25);
 
   --animate-marquee-left: marquee-left 25s linear infinite;
   --animate-marquee-right: marquee-right 25s linear infinite;
@@ -43,20 +43,25 @@
 
 :root {
   color-scheme: dark;
-  --bg: var(--color-cream);
-  --bg-alt: var(--color-paper);
-  --fg: var(--color-ink);
+  --bg: #161311;
+  --bg-alt: #211C18;
+  --fg: #EDE6DC;
+  --text-muted: #A69B8D;
+  --border: #332C26;
+  --accent: #C9A15A;
+  --accent-hover: #D9B370;
+  --accent-muted: rgba(201, 161, 90, 0.1);
   
-  --color-ink-rgb: 248 250 252;
-  --color-amber-rgb: 79 70 229;
-  --color-clay-rgb: 139 92 246;
-  --color-sage-rgb: 148 163 184;
+  --color-ink-rgb: 237 230 220;
+  --color-amber-rgb: 201 161 90;
+  --color-clay-rgb: 217 179 112;
+  --color-sage-rgb: 166 155 141;
 }
 
 html.dark {
-  --bg: var(--color-cream-dark);
-  --bg-alt: var(--color-paper-dark);
-  --fg: var(--color-ink-dark);
+  --bg: #161311;
+  --bg-alt: #211C18;
+  --fg: #EDE6DC;
 }
 
 html {
@@ -76,10 +81,10 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.08), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
+    radial-gradient(circle at 15% 50%, rgba(201, 161, 90, 0.04), transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(201, 161, 90, 0.03), transparent 30%);
   background-attachment: fixed;
-  transition: none; /* No transition for background since we want a constant dark mode */
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -93,8 +98,6 @@ body {
 }
 
 @layer utilities {
-  /* Anchor/scroll-spy aman-transform: batas section diukur dari layout,
-     bukan dari transform animasi (blur/translate) pembungkusnya. */
   .anchor-safe {
     transform: none !important;
     filter: none !important;
@@ -118,17 +121,12 @@ body {
   .shadow-card { box-shadow: var(--shadow-card); }
   .shadow-card-hover { box-shadow: var(--shadow-card-hover); }
   .shadow-glow { box-shadow: var(--shadow-glow); }
-  
-  .bg-amber-alpha { background-color: rgba(79, 70, 229, 0.15); }
-  .bg-clay-alpha { background-color: rgba(139, 92, 246, 0.15); }
-  .bg-sage-alpha { background-color: rgba(148, 163, 184, 0.15); }
-  .bg-ink-alpha { background-color: rgba(248, 250, 252, 0.05); }
 
   .glass-panel {
-    background: rgba(17, 24, 39, 0.6);
+    background: rgba(33, 28, 24, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid #332C26;
   }
 
   .perspective-1000 {
@@ -145,11 +143,11 @@ body {
 }
 
 ::selection {
-  background-color: rgba(79, 70, 229, 0.3);
+  background-color: rgba(201, 161, 90, 0.3);
   color: var(--fg);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(79, 70, 229, 0.5) transparent;
+  scrollbar-color: rgba(201, 161, 90, 0.3) transparent;
 }

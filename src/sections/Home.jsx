@@ -60,7 +60,7 @@ export default function Home({ onJump }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="inline-block rounded-full border border-amber/30 bg-amber/10 px-4 py-1.5 font-mono text-sm font-medium tracking-wide text-amber backdrop-blur-md">
+            <span className="inline-block rounded-full border border-[#C9A15A]/30 bg-[#C9A15A]/10 px-4 py-1.5 font-mono text-sm font-medium tracking-wide text-[#C9A15A] backdrop-blur-md">
               {tr(profile.role)}
             </span>
           </motion.div>
@@ -69,7 +69,7 @@ export default function Home({ onJump }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="font-display text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-7xl"
+            className="font-display text-5xl font-extrabold leading-tight tracking-tight text-[#EDE6DC] sm:text-7xl"
           >
             {profile.name}
           </motion.h1>
@@ -78,7 +78,7 @@ export default function Home({ onJump }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="max-w-xl font-body text-lg leading-relaxed text-slate-300"
+            className="max-w-xl font-body text-lg leading-relaxed text-[#A69B8D]"
           >
             {tr(profile.tagline)}
           </motion.p>
@@ -94,7 +94,7 @@ export default function Home({ onJump }) {
               <motion.div
                 key={t}
                 whileHover={{ y: -5, scale: 1.05 }}
-                className="glass-panel px-4 py-2 rounded-xl text-sm font-medium text-slate-200 cursor-default"
+                className="bg-[#211C18] border border-[#332C26] px-4 py-2 rounded-xl text-sm font-medium text-[#EDE6DC] cursor-default"
               >
                 {t}
               </motion.div>
@@ -110,13 +110,13 @@ export default function Home({ onJump }) {
           >
             <button 
               onClick={() => onJump?.('projek')}
-              className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] px-8 py-4 font-display font-bold text-white shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]"
+              className="relative overflow-hidden rounded-xl bg-[#C9A15A] px-8 py-4 font-display font-bold text-[#161311] shadow-[0_0_20px_rgba(201,161,90,0.25)] transition-all hover:bg-[#D9B370] hover:scale-105"
             >
               <span className="relative z-10">{t('home.cta.projects')}</span>
             </button>
             <button 
               onClick={() => onJump?.('kontak')}
-              className="rounded-xl glass-panel px-8 py-4 font-display font-bold text-white transition-all hover:bg-white/10 hover:scale-105"
+              className="rounded-xl bg-transparent border border-[#332C26] px-8 py-4 font-display font-bold text-[#EDE6DC] transition-all hover:bg-[#2A2420] hover:scale-105"
             >
               {t('home.cta.contact')}
             </button>
@@ -136,41 +136,41 @@ export default function Home({ onJump }) {
               rotateY: -mousePosition.x,
             }}
             transition={{ type: "spring", stiffness: 75, damping: 15 }}
-            className="preserve-3d relative w-full aspect-[4/5] rounded-[2rem] glass-panel p-2 shadow-2xl"
+            className="preserve-3d relative w-full aspect-[4/5] rounded-[2rem] bg-[#211C18] border border-[#332C26] p-2 shadow-2xl"
           >
             {/* Cincin logo bahasa pemrograman mengelilingi foto — berputar terus */}
             <OrbitTechRing />
             {/* Glowing Backdrop */}
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-[#4f46e5]/40 to-[#8b5cf6]/40 blur-2xl -z-10 transform translate-z-[-50px]" />
+            <div className="absolute inset-0 rounded-[2rem] bg-[#C9A15A]/10 blur-2xl -z-10 transform translate-z-[-50px]" />
             
             {/* Image Container */}
-            <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-[#111827]">
+            <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-[#211C18]">
               <img
                 src={profilePhoto}
                 alt={profile.name}
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#161311] via-transparent to-transparent opacity-80" />
             </div>
 
             <motion.div 
-              className="absolute -right-6 top-1/4 glass-panel p-3 rounded-xl shadow-glow z-20"
+              className="absolute -right-6 top-1/4 bg-[#211C18] border border-[#332C26] p-3 rounded-xl shadow-glow z-20"
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
               style={{ transform: "translateZ(50px)" }}
             >
-              <div className="text-2xl font-bold text-[#4f46e5]">3.62</div>
-              <div className="text-xs text-slate-300">GPA</div>
+              <div className="text-2xl font-bold text-[#C9A15A]">3.62</div>
+              <div className="text-xs text-[#A69B8D]">GPA</div>
             </motion.div>
 
             <motion.div 
-              className="absolute -left-8 bottom-1/4 glass-panel p-3 rounded-xl shadow-glow z-20"
+              className="absolute -left-8 bottom-1/4 bg-[#211C18] border border-[#332C26] p-3 rounded-xl shadow-glow z-20"
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
               style={{ transform: "translateZ(70px)" }}
             >
-              <div className="text-2xl font-bold text-[#8b5cf6]">2+</div>
-              <div className="text-xs text-slate-300">Years Exp.</div>
+              <div className="text-2xl font-bold text-[#C9A15A]">2+</div>
+              <div className="text-xs text-[#A69B8D]">Years Exp.</div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -183,11 +183,11 @@ export default function Home({ onJump }) {
         transition={{ delay: 1, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 hidden md:flex"
       >
-        <div className="w-[1px] h-16 bg-gradient-to-b from-[#4f46e5]/50 to-transparent relative overflow-hidden">
+        <div className="w-[1px] h-16 bg-[#332C26] relative overflow-hidden">
           <motion.div 
             animate={{ y: [0, 64] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            className="absolute top-0 left-0 w-full h-1/2 bg-[#4f46e5]"
+            className="absolute top-0 left-0 w-full h-1/2 bg-[#C9A15A]"
           />
         </div>
       </motion.div>

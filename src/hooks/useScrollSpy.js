@@ -62,17 +62,21 @@ export function useScrollSpy(sectionIds) {
         return
       }
 
-      // section aktif = yang batas atasnya terdekat di atas tengah viewport.
-      // Bandingkan scrollTop dengan offsetTop layout (tahan transform).
-      const mid = scrollTop + window.innerHeight * 0.35
+      // section aktif = yang batas atasnya terdekat di atas titik aman
+      // viewport. Posisi dihitung document-relative (rect + scrollY) agar
+      // akurat meski offsetParent elemen bukan body.
+      const mid = window.innerHeight * 0.35
       let current = sectionIds[0]
       for (const id of sectionIds) {
         const el = document.getElementById(id)
         if (!el) continue
-        // offsetTop 0 hanya masuk akal untuk section pertama; selain itu
-        // berarti pengukuran kena transform → abaikan biar spy tidak ngaco.
-        if (el.offsetTop === 0 && id !== sectionIds[0]) continue
-        if (el.offsetTop <= mid) current = id
+        const pos = el.getBoundingClientRect().top
+        // Elemen tak terlihat (mis. masih ter-transform animasi) → jangan
+        // jadikan acuan; nilai 0/aneh hanya sah untuk section pertama.
+        if (pos <= -window.innerHeight || pos === 0) {
+          if (id !== sectionIds[0]) continue
+        }
+        if (pos <= mid) current = id
       }
       setActive(current)
     }

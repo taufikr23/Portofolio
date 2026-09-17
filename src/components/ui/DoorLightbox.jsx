@@ -32,13 +32,13 @@ export default function DoorLightbox({ children }) {
           key={side}
           className={`absolute inset-y-0 w-1/2 z-30 ${
             side === 'left' ? 'left-0 origin-left border-r' : 'right-0 origin-right border-l'
-          } border-[#4f46e5]/30 bg-gradient-to-b from-[#141a33] via-[#0d1226] to-[#141a33] shadow-[inset_0_0_60px_rgba(0,0,0,0.5)]`}
+          } border-[#C9A15A]/25 bg-gradient-to-b from-[#211C18] via-[#161311] to-[#211C18] shadow-[inset_0_0_60px_rgba(0,0,0,0.5)]`}
           style={{ backfaceVisibility: 'hidden' }}
           {...panel(side)}
         >
           {/* Ornamen gagang pintu */}
           <div
-            className={`absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-[#8b5cf6] shadow-[0_0_12px_rgba(139,92,246,0.8)] ${
+            className={`absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-[#C9A15A] shadow-[0_0_12px_rgba(201,161,90,0.8)] ${
               side === 'left' ? 'right-3' : 'left-3'
             }`}
           />

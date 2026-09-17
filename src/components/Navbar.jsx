@@ -39,10 +39,10 @@ export default function Navbar({ active, onJump }) {
           onClick={() => handleJump('home')}
           className="group flex items-center gap-3 focus:outline-none transition-transform hover:scale-105"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] font-display text-xl font-bold text-white shadow-glow">
-            T
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#211C18] border border-[#332C26] overflow-hidden shadow-glow">
+            <img src="/favicon.png" alt="Logo" className="h-full w-full object-cover" />
           </span>
-          <span className="font-display text-lg font-bold tracking-tight text-white hidden sm:block">
+          <span className="font-display text-lg font-bold tracking-tight text-[#EDE6DC] hidden sm:block">
             {t('nav.brand')}
           </span>
         </button>
@@ -53,18 +53,18 @@ export default function Navbar({ active, onJump }) {
             <button
               key={s.id}
               onClick={() => handleJump(s.id)}
-              className="relative rounded-lg px-4 py-2 font-body text-sm font-semibold transition-colors text-slate-300 hover:text-white group"
+              className="relative rounded-lg px-4 py-2 font-body text-sm font-semibold transition-colors text-[#A69B8D] hover:text-[#EDE6DC] group"
             >
               {tr(s.nav)}
               {active === s.id && (
                 <motion.span 
                   layoutId="activeNav"
-                  className="absolute inset-x-3 -bottom-1 h-0.5 rounded-full bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] shadow-[0_0_10px_rgba(79,70,229,0.8)]" 
+                  className="absolute inset-x-3 -bottom-1 h-0.5 rounded-full bg-[#C9A15A] shadow-[0_0_10px_rgba(201,161,90,0.5)]" 
                 />
               )}
             </button>
           ))}
-          <div className="h-6 w-[1px] bg-white/10 mx-2" />
+          <div className="h-6 w-[1px] bg-[#332C26] mx-2" />
           <LangToggle lang={lang} onToggle={toggle} label={t('lang.switch')} />
         </div>
 
@@ -104,8 +104,8 @@ export default function Navbar({ active, onJump }) {
                   onClick={() => handleJump(s.id)}
                   className={`flex items-center gap-3 rounded-xl px-4 py-3 text-left font-body text-sm font-semibold transition-all ${
                     active === s.id
-                      ? 'bg-gradient-to-r from-[#4f46e5]/20 to-[#8b5cf6]/20 text-white border border-white/10'
-                      : 'text-slate-300 hover:bg-white/5'
+                      ? 'bg-[#C9A15A]/10 text-[#C9A15A] border border-[#C9A15A]/30'
+                      : 'text-[#A69B8D] hover:bg-[#2A2420]'
                   }`}
                 >
                   {tr(s.nav)}
@@ -125,12 +125,12 @@ function LangToggle({ lang, onToggle, label }) {
       onClick={onToggle}
       aria-label={label}
       title={label}
-      className="flex h-10 items-center gap-1 rounded-xl px-2 font-mono text-xs font-bold text-slate-300 transition-all hover:bg-white/10 focus:outline-none glass-panel"
+      className="flex h-10 items-center gap-1 rounded-xl px-2 font-mono text-xs font-bold text-[#A69B8D] transition-all hover:bg-[#2A2420] focus:outline-none glass-panel"
     >
-      <span className={`rounded-lg px-2 py-1 transition-colors ${lang === 'id' ? 'bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] text-white shadow-glow' : 'text-slate-400'}`}>
+      <span className={`rounded-lg px-2 py-1 transition-colors ${lang === 'id' ? 'bg-[#C9A15A] text-[#161311] font-bold shadow-glow' : 'text-[#A69B8D]'}`}>
         ID
       </span>
-      <span className={`rounded-lg px-2 py-1 transition-colors ${lang === 'en' ? 'bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] text-white shadow-glow' : 'text-slate-400'}`}>
+      <span className={`rounded-lg px-2 py-1 transition-colors ${lang === 'en' ? 'bg-[#C9A15A] text-[#161311] font-bold shadow-glow' : 'text-[#A69B8D]'}`}>
         EN
       </span>
     </button>
